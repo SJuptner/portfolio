@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarah Juptner — Systems Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-bg-start: #e0c4f7;
+            --color-bg-mid: #d4b3f5;
+            --color-bg-end: #b5dbf9;
+            --color-text: #1a1626;
+            --color-text-muted: #5a5268;
+            --color-accent: #8b7ba8;
+            --color-accent-pink: #d89fc7;
+            --color-card: rgba(255, 255, 255, 0.75);
+            --color-card-hover: rgba(255, 255, 255, 0.85);
+            --color-border: rgba(139, 123, 168, 0.25);
+            --font-display: 'Source Sans Pro', sans-serif;
+            --font-body: 'Lora', serif;
+        }
+
+        html {
+            overflow: hidden;
+        }
+
+        /* Optional: Add semi-transparent overlay if background is too bright */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.15); /* Adjust opacity as needed */
+            pointer-events: none;
+            z-index: 1;
+            /* To remove overlay, set display: none; */
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-bg-mid); /* Fallback color */
+            /* 
+            Background image paths:
+            - Same folder as HTML: url('background.jpg')
+            - In assets folder: url('assets/background.jpg')
+            - In images folder: url('images/background.jpg')
+            - Root of repository: url('/background.jpg')
+            */
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 2000;
+            padding: 24px 0;
+            animation: slideDown 0.6s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+
+        @keyframes slideDown {
+            to { opacity: 1; }
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--color-text);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 16px;
+            list-style: none;
+        }
+
+        .nav-links button {
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text);
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links button:hover,
+        .nav-links button.active {
+            color: white;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-pink));
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 123, 168, 0.3);
+        }
+
+        /* 3D Scene Setup */
+        .scene {
+            width: 100vw;
+            height: 100vh;
+            perspective: 2000px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: translateZ(-50vw);
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            visibility: hidden;
+            will-change: transform;
+        }
+
+        .cube-face.active {
+            visibility: visible;
+        }
+
+        /* Cube face positions */
+        .face-mandate {
+            transform: rotateY(0deg) translateZ(50vw);
+        }
+
+        .face-system {
+            transform: rotateY(90deg) translateZ(50vw);
+        }
+
+        .face-stewardship {
+            transform: rotateY(180deg) translateZ(50vw);
+        }
+
+        .face-leverage {
+            transform: rotateY(270deg) translateZ(50vw);
+        }
+
+        /* Cube rotations */
+        .cube.show-mandate {
+            transform: translateZ(-50vw) rotateY(0deg);
+        }
+
+        .cube.show-system {
+            transform: translateZ(-50vw) rotateY(-90deg);
+        }
+
+        .cube.show-stewardship {
+            transform: translateZ(-50vw) rotateY(-180deg);
+        }
+
+        .cube.show-leverage {
+            transform: translateZ(-50vw) rotateY(-270deg);
+        }
+
+        /* Content container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 120px 80px 80px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-inner {
+            width: 100%;
+            background: var(--color-card);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--color-border);
+            border-radius: 32px;
+            padding: 80px 60px;
+            box-shadow: 0 8px 32px rgba(139, 123, 168, 0.1);
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(40px, 4.5vw, 50px);
+            line-height: 1.15;
+            margin-bottom: 32px;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-size: clamp(30px, 3.8vw, 42px);
+            line-height: 1.25;
+            margin-bottom: 28px;
+            letter-spacing: -0.01em;
+        }
+
+        h2 strong {
+            font-weight: 600;
+        }
+
+        h3 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: clamp(22px, 2.2vw, 28px);
+            margin-bottom: 16px;
+            color: var(--color-text);
+        }
+
+        p {
+            font-family: var(--font-body);
+            font-size: clamp(18px, 1.6vw, 20px);
+            line-height: 1.8;
+            color: var(--color-text-muted);
+            margin-bottom: 20px;
+            max-width: 75ch;
+        }
+
+        /* Section label */
+        .section-label {
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 16px;
+        }
+
+        /* Wave divider */
+        .wave-divider {
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-accent-pink));
+            margin: 24px 0;
+            border-radius: 2px;
+        }
+
+        /* Authority marquee */
+        .authority-wrapper {
+            margin: 60px 0;
+            overflow: hidden;
+            padding: 24px 0;
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+            position: relative;
+        }
+
+        .authority-wrapper::before,
+        .authority-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 120px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .authority-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.75), transparent);
+        }
+
+        .authority-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.75), transparent);
+        }
+
+        .marquee {
+            display: flex;
+            gap: 80px;
+            animation: marquee 35s linear infinite;
+        }
+
+        .marquee-item {
+            font-family: var(--font-display);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--color-accent);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Stats */
+        .stats-container {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 24px;
+            padding: 60px;
+            margin: 60px 0;
+            backdrop-filter: blur(20px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 48px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(48px, 5.5vw, 72px);
+            line-height: 1;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .stat-label {
+            font-family: var(--font-body);
+            font-size: 17px;
+            color: var(--color-text-muted);
+            line-height: 1.5;
+        }
+
+        /* Content cards */
+        .content-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 48px;
+            margin-bottom: 32px;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateZ(0);
+        }
+
+        .content-card:hover {
+            transform: translateY(-4px) translateZ(0);
+            box-shadow: 0 12px 40px rgba(139, 123, 168, 0.2);
+        }
+
+        .content-card h3 {
+            color: var(--color-accent);
+            margin-bottom: 20px;
+        }
+
+        /* Pattern cards */
+        .patterns-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .pattern-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 48px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateZ(0);
+        }
+
+        .pattern-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 5px;
+            height: 0;
+            background: linear-gradient(to bottom, var(--color-accent), var(--color-accent-pink));
+            transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .pattern-card:hover::before {
+            height: 100%;
+        }
+
+        .pattern-card:hover {
+            transform: translateX(8px) translateZ(0);
+            box-shadow: 0 12px 40px rgba(139, 123, 168, 0.2);
+        }
+
+        .pattern-badge {
+            display: inline-block;
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-accent);
+            background: rgba(139, 123, 168, 0.1);
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 20px;
+        }
+
+        .pattern-card h3 small {
+            display: block;
+            font-size: 0.7em;
+            color: var(--color-text-muted);
+            font-weight: 400;
+            margin-top: 8px;
+        }
+
+        .pattern-section {
+            margin-bottom: 24px;
+        }
+
+        .pattern-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .pattern-section strong {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 8px;
+        }
+
+        /* Feature list */
+        .feature-list {
+            list-style: none;
+            margin: 32px 0;
+        }
+
+        .feature-list li {
+            font-family: var(--font-body);
+            font-size: clamp(17px, 1.5vw, 20px);
+            color: var(--color-text-muted);
+            line-height: 1.8;
+            padding-left: 32px;
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+            padding: 20px 40px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-pink));
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 8px 24px rgba(139, 123, 168, 0.3);
+            cursor: pointer;
+            margin-top: 32px;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(139, 123, 168, 0.4);
+        }
+
+        .cta-button .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover .arrow {
+            transform: translateX(6px);
+        }
+
+        .emphasis-text {
+            font-size: clamp(20px, 1.8vw, 24px);
+            font-weight: 600;
+            color: var(--color-text);
+            margin: 32px 0;
+        }
+
+        .center-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+
+            .section-inner {
+                padding: 60px 48px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container,
+            .container {
+                padding: 0 32px;
+                padding-top: 100px;
+            }
+
+            .section-inner {
+                padding: 48px 32px;
+                border-radius: 24px;
+            }
+
+            .stats-container {
+                padding: 40px 32px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .pattern-card,
+            .content-card {
+                padding: 32px 24px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links button {
+                font-size: 12px;
+                padding: 8px 14px;
+            }
+
+            .stat-number {
+                font-size: clamp(36px, 8vw, 48px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                gap: 8px;
+            }
+
+            .nav-links button {
+                font-size: 11px;
+                padding: 7px 12px;
+            }
+
+            .section-inner {
+                padding: 40px 24px;
+                border-radius: 20px;
+            }
+
+            .stat-number {
+                font-size: clamp(32px, 10vw, 40px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <span class="logo">Sarah Juptner</span>
+            <ul class="nav-links">
+                <li><button onclick="rotateCube('mandate')" class="active" data-face="mandate">Mandate</button></li>
+                <li><button onclick="rotateCube('system')" data-face="system">System</button></li>
+                <li><button onclick="rotateCube('stewardship')" data-face="stewardship">Stewardship</button></li>
+                <li><button onclick="rotateCube('leverage')" data-face="leverage">Leverage</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 3D Scene -->
+    <div class="scene">
+        <div class="cube show-mandate">
+            
+            <!-- MANDATE FACE -->
+            <div class="cube-face face-mandate active">
+                <div class="container">
+                    <div class="section-inner">
+                        <h1>When systems work, people barely notice them.</h1>
+                        <h2>When they don't, complexity turns into chaos.</h2>
+                        <div class="wave-divider"></div>
+                        <p style="font-size: clamp(19px, 1.7vw, 22px); max-width: 800px;">I design systems that flow at scale, shaping how information moves across editorial, operational, and reader-facing contexts without introducing friction or fragility.</p>
+                        
+                        <h2 style="margin-top: 48px;">I'm Sarah Juptner.</h2>
+                        <h2>I build structures that let people focus on the work, not workarounds.</h2>
+
+                        <div class="authority-wrapper">
+                            <div class="marquee">
+                                <span class="marquee-item">Before Launch</span>
+                                <span class="marquee-item">Between Teams</span>
+                                <span class="marquee-item">After Turnover</span>
+                                <span class="marquee-item">Under Pressure</span>
+                                <span class="marquee-item">Before Launch</span>
+                                <span class="marquee-item">Between Teams</span>
+                                <span class="marquee-item">After Turnover</span>
+                                <span class="marquee-item">Under Pressure</span>
+                            </div>
+                        </div>
+
+                        <h2 style="margin-top: 60px;">Over the past eight years, I've led and developed production and publishing systems used by global, interdisciplinary teams.</h2>
+
+                        <p style="font-size: clamp(19px, 1.7vw, 22px); max-width: 900px;">Much of this work happens quietly: defining workflows, setting constraints, designing platforms, and making decisions that reduce friction long after a project ships.</p>
+
+                        <h1 style="margin-top: 60px;">What This Site Is About</h1>
+                        <h2>This portfolio is not a collection of outputs.</h2>
+                        <div class="wave-divider"></div>
+                        <p style="font-size: clamp(19px, 1.7vw, 22px);">It's a record of interventions, moments where systems were redesigned to scale participation, preserve quality, and create room for better decisions under pressure.</p>
+                        
+                        <button onclick="rotateCube('system')" class="cta-button">
+                            See the systems I've built
+                            <span class="arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SYSTEM FACE -->
+            <div class="cube-face face-system">
+                <div class="container">
+                    <div class="section-inner">
+                        <span class="section-label">The System</span>
+                        <h1>Making Interactive Publishing Operable at Scale</h1>
+                        <div class="wave-divider"></div>
+                        
+                        <div class="content-card" style="margin-top: 40px;">
+                            <h3>The problem</h3>
+                            <div class="wave-divider"></div>
+                            <p>Interactivity was technically possible but operationally constrained. More engaging and interactive digital editions depended on specialists, which slowed iteration and limited who could participate.</p>
+                        </div>
+
+                        <div class="content-card">
+                            <h3>The intervention</h3>
+                            <div class="wave-divider"></div>
+                            <p>I developed an integrated platform that allowed editors, designers, and producers to assemble interactive digital books using familiar inputs like print PDFs.</p>
+                            <ul class="feature-list">
+                                <li>No-code data visualization with enforced styling</li>
+                                <li>A digital book editor for structuring publications</li>
+                                <li>Automated PDF parsing to eliminate manual overhead</li>
+                                <li>Responsive e-book generator for interactive content</li>
+                                <li>Templated cover system to enforce brand consistency</li>
+                            </ul>
+                        </div>
+
+                        <div class="center-content" style="margin-top: 60px;">
+                            <h2>Impact</h2>
+                            <div class="wave-divider" style="margin: 24px auto;"></div>
+                        </div>
+
+                        <div class="stats-container">
+                            <div class="stats-grid">
+                                <div class="stat-item" data-target="200">
+                                    <span class="stat-number">0%</span>
+                                    <span class="stat-label">Jump in reader engagement</span>
+                                </div>
+                                <div class="stat-item" data-target="92">
+                                    <span class="stat-number">0%</span>
+                                    <span class="stat-label">Production efficiency gain</span>
+                                </div>
+                                <div class="stat-item" data-target="15">
+                                    <span class="stat-number">120 Min</span>
+                                    <span class="stat-label">Time to produce a page (down from 2 hours)</span>
+                                </div>
+                                <div class="stat-item" data-target="1500">
+                                    <span class="stat-number">0+</span>
+                                    <span class="stat-label">Hours saved annually</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="center-content" style="margin-top: 40px;">
+                            <button onclick="rotateCube('stewardship')" class="cta-button">
+                                See stewardship in practice
+                                <span class="arrow">→</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEWARDSHIP FACE -->
+            <div class="cube-face face-stewardship">
+                <div class="container">
+                    <div class="section-inner">
+                        <span class="section-label">Stewardship</span>
+                        <h1>Patterns of Leadership</h1>
+                        <h2>Designing systems that support teams long after decisions are made</h2>
+                        <div class="wave-divider"></div>
+
+                        <div class="patterns-list" style="margin-top: 48px;">
+                            <div class="pattern-card">
+                                <span class="pattern-badge">Pattern 1</span>
+                                <h3>Shared reality over status updates<small>The Project Master</small></h3>
+                                <div class="pattern-section">
+                                    <strong>Problem</strong>
+                                    <p>Progress lived in spreadsheets, meetings, and personal updates. Executives depended on me to translate scattered signals.</p>
+                                </div>
+                                <div class="pattern-section">
+                                    <strong>Outcome</strong>
+                                    <p>Visibility and alignment without escalation. Clear readiness thresholds reduced anxiety and removed last-minute heroics.</p>
+                                </div>
+                            </div>
+
+                            <div class="pattern-card">
+                                <span class="pattern-badge">Pattern 2</span>
+                                <h3>Standards at speed<small>The Project Master</small></h3>
+                                <div class="pattern-section">
+                                    <strong>Problem</strong>
+                                    <p>Flexibility is useful until it obscures risk.</p>
+                                </div>
+                                <div class="pattern-section">
+                                    <strong>Outcome</strong>
+                                    <p>Removed the temptation to "start anyway" and protected teams from rework and stalled launches.</p>
+                                </div>
+                            </div>
+
+                            <div class="pattern-card">
+                                <span class="pattern-badge">Pattern 3</span>
+                                <h3>Embedded accountability<small>The automated Gantt chart</small></h3>
+                                <div class="pattern-section">
+                                    <strong>Problem</strong>
+                                    <p>Relying on ad hoc guidance no longer worked. Expectations needed to be visible without intervention.</p>
+                                </div>
+                                <div class="pattern-section">
+                                    <strong>Outcome</strong>
+                                    <p>Editors spent less time orienting contributors. Ownership became clearer without additional process.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="emphasis-text" style="margin-top: 60px; max-width: 900px;">These systems didn't eliminate complexity. They made it navigable.</p>
+
+                        <button onclick="rotateCube('leverage')" class="cta-button">
+                            See where leverage emerges
+                            <span class="arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEVERAGE FACE -->
+            <div class="cube-face face-leverage">
+                <div class="container">
+                    <div class="section-inner">
+                        <span class="section-label">Leverage</span>
+                        <h1>Not all work carries the same weight.</h1>
+                        <div class="wave-divider"></div>
+
+                        <p style="font-size: clamp(19px, 1.7vw, 22px); max-width: 900px; margin-top: 40px;">In complex organizations, effort is everywhere. Impact is harder to find.</p>
+
+                        <p style="font-size: clamp(19px, 1.7vw, 22px); max-width: 900px;">Leverage comes from recognizing where a small structural decision can remove friction across teams and acting there instead of adding process, meetings, or headcount.</p>
+
+                        <p class="emphasis-text" style="max-width: 900px;">I architect systems for moments when growth, complexity, and creative ambition collide.</p>
+
+                        <div style="height: 60px;"></div>
+
+                        <p style="font-size: clamp(19px, 1.7vw, 22px); max-width: 900px;">The work I'm most proud of is often invisible. It shows up when teams can move forward without stopping to ask, clarify, or escalate because the system already supports the decision.</p>
+
+                        <h2 style="margin-top: 60px;">That's leverage.</h2>
+
+                        <p style="font-style: italic; color: var(--color-accent); font-size: clamp(19px, 1.7vw, 22px); margin-top: 40px;">This is where the conversation begins.</p>
+
+                        <button onclick="rotateCube('mandate')" class="cta-button">
+                            Return to beginning
+                            <span class="arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        let currentFace = 'mandate';
+        let isAnimating = false;
+        let numbersAnimated = false;
+
+        // Initialize: show only the mandate face
+        document.addEventListener('DOMContentLoaded', () => {
+            updateFaceVisibility('mandate');
+            setupStatsObserver();
+        });
+
+        function updateFaceVisibility(activeFace) {
+            const faces = document.querySelectorAll('.cube-face');
+            faces.forEach(face => {
+                if (face.classList.contains('face-' + activeFace)) {
+                    face.classList.add('active');
+                } else {
+                    face.classList.remove('active');
+                }
+            });
+        }
+
+        function rotateCube(face) {
+            if (isAnimating || currentFace === face) return;
+            isAnimating = true;
+            
+            const cube = document.querySelector('.cube');
+            const buttons = document.querySelectorAll('.nav-links button');
+            
+            // Update face visibility immediately for better performance
+            updateFaceVisibility(face);
+            
+            // Remove all show classes
+            cube.classList.remove('show-mandate', 'show-system', 'show-stewardship', 'show-leverage');
+            
+            // Add new show class
+            cube.classList.add('show-' + face);
+            currentFace = face;
+            
+            // Update active button
+            buttons.forEach(btn => {
+                if (btn.dataset.face === face) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Reset numbers when rotating to system page
+            if (face === 'system' && numbersAnimated) {
+                resetNumbers();
+            }
+            
+            setTimeout(() => {
+                isAnimating = false;
+            }, 1200);
+        }
+
+        // Setup Intersection Observer for stats animation
+        function setupStatsObserver() {
+            const statsContainer = document.querySelector('.face-system .stats-container');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !numbersAnimated && currentFace === 'system') {
+                        animateAllNumbers();
+                        numbersAnimated = true;
+                    }
+                });
+            }, {
+                root: document.querySelector('.face-system'),
+                threshold: 0.3
+            });
+
+            if (statsContainer) {
+                observer.observe(statsContainer);
+            }
+        }
+
+        // Easing function for smooth animation
+        function easeOutExpo(t) {
+            return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+        }
+
+        // Animate a single number counting UP
+        function animateNumberUp(element, target, suffix) {
+            const duration = 2000;
+            const startTime = performance.now();
+            const numberSpan = element.querySelector('.stat-number');
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easedProgress = easeOutExpo(progress);
+                const currentValue = Math.floor(easedProgress * target);
+                
+                const formattedNumber = currentValue.toLocaleString();
+                numberSpan.textContent = formattedNumber + suffix;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        // Animate a single number counting DOWN (for time stat)
+        function animateNumberDown(element, startValue, endValue, suffix) {
+            const duration = 2000;
+            const startTime = performance.now();
+            const numberSpan = element.querySelector('.stat-number');
+            const range = startValue - endValue;
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easedProgress = easeOutExpo(progress);
+                const currentValue = Math.floor(startValue - (easedProgress * range));
+                
+                numberSpan.textContent = currentValue + suffix;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        function animateAllNumbers() {
+            const statItems = document.querySelectorAll('.face-system .stat-item');
+            
+            // Animate each stat with staggered timing
+            setTimeout(() => animateNumberUp(statItems[0], 200, '%'), 0);
+            setTimeout(() => animateNumberUp(statItems[1], 92, '%'), 200);
+            setTimeout(() => animateNumberDown(statItems[2], 120, 15, ' Min'), 400); // COUNT DOWN
+            setTimeout(() => animateNumberUp(statItems[3], 1500, '+'), 600);
+        }
+
+        // Reset numbers when leaving system page or before re-animation
+        function resetNumbers() {
+            const statNumbers = document.querySelectorAll('.face-system .stat-number');
+            statNumbers[0].textContent = '0%';
+            statNumbers[1].textContent = '0%';
+            statNumbers[2].textContent = '120 Min';  // Start at 120 for countdown
+            statNumbers[3].textContent = '0+';
+            numbersAnimated = false;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (isAnimating) return;
+            
+            const faces = ['mandate', 'system', 'stewardship', 'leverage'];
+            const currentIndex = faces.indexOf(currentFace);
+            
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (currentFace === 'system') resetNumbers();
+                const nextIndex = (currentIndex + 1) % faces.length;
+                rotateCube(faces[nextIndex]);
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (currentFace === 'system') resetNumbers();
+                const prevIndex = (currentIndex - 1 + faces.length) % faces.length;
+                rotateCube(faces[prevIndex]);
+            }
+        });
+
+        // Add smooth scroll for cube faces
+        document.querySelectorAll('.cube-face').forEach(face => {
+            face.style.scrollBehavior = 'smooth';
+        });
+    </script>
+</body>
+</html>
