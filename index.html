@@ -1,0 +1,2895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sarah Juptner — Creative Operations & Systems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a1a1a;
+      --accent: #d4381c;
+      --light-gray: #f8f8f8;
+      --mid-gray: #666;
+      --border: #e0e0e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Lora', serif;
+      font-size: 20px;
+      line-height: 1.7;
+      color: var(--primary);
+      background: #fff;
+    }
+
+    /* ============================================
+       GLOBAL NAVIGATION
+       ============================================ */
+
+    .global-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      padding: 0 2rem;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      height: 70px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 3rem;
+    }
+
+    .nav-item {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      text-decoration: none;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .nav-item:hover {
+      color: var(--primary);
+      border-bottom-color: var(--accent);
+    }
+
+    .nav-item.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* Offset body content for fixed nav */
+    .site-wrapper {
+      padding-top: 70px;
+    }
+
+    /* Typography */
+    h1 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 400;
+      font-size: clamp(1.75rem, 3.5vw, 2.625rem);
+      line-height: 1.3;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      max-width: 75ch;
+    }
+
+    strong {
+      font-weight: 700;
+    }
+
+    /* Layout */
+    .site-wrapper {
+      width: 100%;
+    }
+
+    .page {
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    .section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Hero Section */
+    .page-mandate {
+      background: linear-gradient(180deg, #fafafa 0%, #fff 100%);
+    }
+
+    .hero-mandate {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+    }
+
+    /* Side context bar */
+    .hero-context {
+      position: fixed;
+      left: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 1.8s forwards;
+      z-index: 10;
+    }
+
+    .context-item {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+    }
+
+    .context-item.accent {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Main hero content */
+    .hero-text {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-text h1 {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 0.2s forwards;
+    }
+
+    .hero-text h2:first-of-type {
+      color: var(--mid-gray);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 0.4s forwards;
+    }
+
+    .hero-description {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      margin: 3rem 0 2rem;
+      max-width: 900px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 0.6s forwards;
+    }
+
+    .identity-block {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin: 3rem 0 1rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 0.8s forwards;
+    }
+
+    .identity-name {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .identity-role {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      padding: 0.4rem 1rem;
+      background: rgba(212, 56, 28, 0.08);
+      border-left: 3px solid var(--accent);
+    }
+
+    .hero-text h2:last-of-type {
+      margin-top: 0.5rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 1s forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* Authority Marquee - SEAMLESS CONTINUOUS ANIMATION */
+    .authority-marquee {
+      margin: 4rem 0 2rem;
+      padding: 2rem 0;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out 1.2s forwards;
+    }
+
+    .authority-marquee::before,
+    .authority-marquee::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%);
+    }
+
+    .authority-marquee::before { top: 0; }
+    .authority-marquee::after { bottom: 0; }
+
+    .authority-marquee h2 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: var(--mid-gray);
+      margin: 0;
+      white-space: nowrap;
+      display: inline-block;
+      animation: marqueeScroll 30s linear infinite;
+    }
+
+    @keyframes marqueeScroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* Scroll Cue - ENHANCED */
+    .scroll-cue {
+      position: fixed;
+      bottom: 50%;
+      left: 50%;
+      transform: translate(-50%, 50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 17.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--mid-gray);
+      opacity: 0;
+      z-index: 9999;
+      pointer-events: none;
+      animation: scrollCueFadeIn 1s ease-out 1.6s forwards, scrollCueFloat 3s ease-in-out 2s infinite;
+    }
+
+    .scroll-cue.hidden {
+      animation: scrollCueFadeOut 0.5s ease-out forwards;
+    }
+
+    @keyframes scrollCueFadeIn {
+      to {
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes scrollCueFadeOut {
+      to {
+        opacity: 0;
+      }
+    }
+
+    @keyframes scrollCueFloat {
+      0%, 100% { transform: translate(-50%, 50%); }
+      50% { transform: translate(-50%, calc(50% + 100px)); }
+    }
+
+    .scroll-arrow {
+      width: 30px;
+      height: 300px;
+      background: linear-gradient(180deg, var(--mid-gray) 0%, transparent 100%);
+      display: block;
+    }
+
+    /* Proof Container - REDESIGNED */
+    .proof-container {
+      padding: 6rem 2rem;
+      opacity: 0;
+      transition: opacity 0.6s ease-out;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .proof-container.visible {
+      opacity: 1;
+    }
+
+    /* Skim sidebar */
+    .skim-sidebar {
+      position: sticky;
+      top: 6rem;
+    }
+
+    .skim-title {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .skim-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .skim-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .skim-number {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .skim-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary);
+      line-height: 1.3;
+    }
+
+    /* Main content */
+    .proof-content h2 {
+      font-size: clamp(1.5rem, 3vw, 2.125rem);
+      line-height: 1.5;
+      margin-bottom: 2rem;
+    }
+
+    .implications {
+      color: var(--mid-gray);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 70ch;
+      padding-left: 2rem;
+      border-left: 2px solid var(--light-gray);
+      margin-top: 2rem;
+    }
+
+    /* Site Orientation - REDESIGNED */
+    .site-orientation {
+      padding: 8rem 2rem;
+      max-width: 1200px;
+      opacity: 0;
+      transition: opacity 0.6s ease-out;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .site-orientation.visible {
+      opacity: 1;
+    }
+
+    /* Left column - Visual statement */
+    .orientation-statement {
+      position: sticky;
+      top: 6rem;
+    }
+
+    .orientation-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      margin-bottom: 2rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .orientation-statement h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+
+    .orientation-graphic {
+      width: 100%;
+      height: 200px;
+      position: relative;
+      margin-top: 3rem;
+      opacity: 0.6;
+    }
+
+    .orientation-graphic svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Right column - Content */
+    .orientation-content {
+      padding-top: 3rem;
+    }
+
+    .orientation-content h2 {
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+      line-height: 1.3;
+    }
+
+    .orientation-grid {
+      display: grid;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .orientation-item {
+      padding-left: 2.5rem;
+      position: relative;
+    }
+
+    .orientation-item::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      top: 0.25rem;
+      font-size: 1.5rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .orientation-item p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #333;
+      margin: 0;
+    }
+
+    .cta-block {
+      margin-top: 4rem;
+      padding: 3rem;
+      background: var(--light-gray);
+      border-left: 4px solid var(--accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .cta-text {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    .cta {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #fff;
+      background: var(--primary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 2px solid var(--primary);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .cta:hover {
+      background: transparent;
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-context {
+        display: none;
+      }
+
+      .nav-links {
+        gap: 2rem;
+      }
+
+      .nav-item {
+        font-size: 0.8rem;
+      }
+
+      .proof-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .skim-sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .skim-title {
+        grid-column: 1 / -1;
+      }
+
+      .implications {
+        padding-left: 1rem;
+      }
+
+      .site-orientation {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 6rem 2rem;
+      }
+
+      .orientation-statement {
+        position: static;
+      }
+
+      .orientation-graphic {
+        height: 150px;
+        margin-top: 2rem;
+      }
+
+      .orientation-content {
+        padding-top: 0;
+      }
+
+      .cta-block {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+
+      .cta {
+        width: 100%;
+      }
+
+      /* Page 2 responsive */
+      .snapshot-layout {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .snapshot-sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .snapshot-title {
+        grid-column: 1 / -1;
+      }
+
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .impact-section {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 3rem 2rem;
+      }
+
+      .impact-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+
+      .scroll-cue {
+        font-size: 8rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        padding: 3rem 1.5rem;
+      }
+
+      .hero-mandate {
+        padding: 4rem 1.5rem 3rem;
+      }
+
+      .identity-block {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .skim-sidebar {
+        grid-template-columns: 1fr;
+      }
+
+      .site-orientation {
+        padding: 4rem 1.5rem;
+      }
+
+      .orientation-graphic {
+        display: none;
+      }
+
+      .case-study-hero {
+        padding: 5rem 1.5rem 3rem;
+      }
+
+      .snapshot-sidebar {
+        grid-template-columns: 1fr;
+      }
+
+      .context-snapshot {
+        padding: 4rem 1.5rem;
+      }
+
+      .impact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .emergent-callout {
+        padding: 2rem 1.5rem;
+      }
+
+      .emergent-callout {
+        padding: 2rem 1.5rem;
+      }
+
+      .emergent-callout {
+        flex-direction: column;
+      }
+
+      .emergent-graphic {
+        width: 60px;
+        height: 60px;
+      }
+
+      .stewardship-bg-graphic {
+        display: none;
+      }
+
+      .leverage-diagram {
+        width: 180px;
+        height: 100px;
+      }
+
+      .workflow-diagram {
+        margin-top: 2rem;
+      }
+
+      .flow-node {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.6rem;
+      }
+
+      .insight-callout {
+        font-size: 1.25rem !important;
+        padding-left: 1.5rem;
+      }
+
+      /* Page 3 responsive */
+      .patterns-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .pattern-nav {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .pattern-nav-title {
+        grid-column: 1 / -1;
+      }
+
+      .pattern-header {
+        gap: 1.5rem;
+      }
+
+      .pattern-number {
+        font-size: 2.5rem;
+      }
+
+      .conclusion-statement {
+        padding: 2rem 1.5rem;
+      }
+
+      .conclusion-main {
+        font-size: 1.5rem !important;
+      }
+
+      /* Page 4 responsive */
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .contact-profile {
+        position: static;
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .profile-image {
+        width: 120px;
+        height: 120px;
+      }
+
+      .profile-info {
+        text-align: left;
+      }
+
+      .contact-link {
+        padding: 1.5rem 2rem;
+      }
+
+      .scroll-cue {
+        font-size: 5rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .contact-profile {
+        flex-direction: column;
+      }
+
+      .profile-info {
+        text-align: center;
+      }
+
+      .contact-link {
+        gap: 1.5rem;
+        padding: 1.5rem;
+      }
+
+      .global-nav {
+        padding: 0 1.5rem;
+      }
+
+      .nav-container {
+        height: 60px;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .nav-item {
+        font-size: 0.7rem;
+        letter-spacing: 0.05em;
+      }
+
+      .site-wrapper {
+        padding-top: 60px;
+      }
+
+      .scroll-cue {
+        font-size: 3rem;
+      }
+    }
+
+    /* Scroll-triggered animations */
+    .fade-on-scroll,
+    .fade-on-scroll-late {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .fade-on-scroll.visible,
+    .fade-on-scroll-late.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================
+       PAGE 2: THE SYSTEM - Case Study Styles
+       ============================================ */
+
+    .page-system {
+      background: #fff;
+    }
+
+    /* Case Study Hero */
+    .case-study-hero {
+      padding: 8rem 2rem 4rem;
+      max-width: 1200px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .case-study-header {
+      max-width: 900px;
+    }
+
+    .case-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .case-study-header h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    /* Context Snapshot Section */
+    .context-snapshot {
+      padding: 6rem 2rem;
+      opacity: 0;
+      transition: opacity 0.6s ease-out;
+    }
+
+    .context-snapshot.visible {
+      opacity: 1;
+    }
+
+    .snapshot-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    /* Snapshot Sidebar */
+    .snapshot-sidebar {
+      position: sticky;
+      top: 6rem;
+    }
+
+    .snapshot-title {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      margin-bottom: 2rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .snapshot-items {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .snapshot-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .snapshot-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      font-weight: 600;
+    }
+
+    .snapshot-value {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.3;
+    }
+
+    /* Workflow Diagram */
+    .workflow-diagram {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid var(--accent);
+    }
+
+    .workflow-title {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      margin-bottom: 1.5rem;
+    }
+
+    .workflow-before,
+    .workflow-after {
+      margin-bottom: 1.5rem;
+    }
+
+    .workflow-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      margin-bottom: 0.5rem;
+      opacity: 0.7;
+    }
+
+    .workflow-flow {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .flow-node {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.5rem 0.75rem;
+      background: var(--light-gray);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      flex: 1;
+      text-align: center;
+    }
+
+    .flow-node.accent {
+      background: rgba(212, 56, 28, 0.1);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .flow-arrow {
+      color: var(--mid-gray);
+      font-size: 0.875rem;
+      opacity: 0.5;
+    }
+
+    /* Narrative Content */
+    .narrative-content {
+      max-width: 800px;
+    }
+
+    .narrative-section {
+      margin-bottom: 5rem;
+    }
+
+    .narrative-section h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: var(--primary);
+    }
+
+    .narrative-section p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    /* Insight Callout */
+    .insight-callout {
+      font-size: 1.5rem !important;
+      font-style: italic;
+      color: var(--accent) !important;
+      padding: 2rem 0 2rem 2rem;
+      border-left: 4px solid var(--accent);
+      margin: 2.5rem 0 !important;
+      background: rgba(212, 56, 28, 0.03);
+    }
+
+    /* Tools Grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .tool-card {
+      padding: 2rem 1.5rem;
+      background: var(--light-gray);
+      border-left: 3px solid var(--mid-gray);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .tool-card:hover {
+      border-left-color: var(--accent);
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transform: translateX(4px);
+    }
+
+    .tool-icon {
+      width: 40px;
+      height: 40px;
+      color: var(--accent);
+      opacity: 0.4;
+      margin-bottom: 1rem;
+      transition: opacity 0.3s ease;
+    }
+
+    .tool-card:hover .tool-icon {
+      opacity: 1;
+    }
+
+    .tool-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .tool-number {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--mid-gray);
+      margin-bottom: 1rem;
+    }
+
+    .tool-card h4 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .tool-card p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--mid-gray);
+      margin: 0;
+    }
+
+    /* Impact Section */
+    .impact-section {
+      background: var(--light-gray);
+      padding: 4rem 3rem;
+      margin-left: -3rem;
+      margin-right: -3rem;
+      border-radius: 4px;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+      margin: 3rem 0;
+    }
+
+    .impact-stat {
+      text-align: left;
+    }
+
+    .stat-number {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--mid-gray);
+    }
+
+    .impact-summary {
+      margin-top: 3rem !important;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 1.125rem !important;
+    }
+
+    /* Emergent Section */
+    .emergent-section {
+      margin-top: 5rem;
+    }
+
+    .emergent-callout {
+      padding: 3rem;
+      background: linear-gradient(135deg, #fafafa 0%, #fff 100%);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .emergent-graphic {
+      flex-shrink: 0;
+      width: 80px;
+      height: 80px;
+      color: var(--accent);
+      opacity: 0.4;
+    }
+
+    .emergent-graphic svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .emergent-callout p {
+      font-size: 1.25rem !important;
+      line-height: 1.6 !important;
+      margin: 0 !important;
+      flex: 1;
+    }
+
+    /* Section Navigation */
+    .section-nav {
+      margin-top: 6rem;
+      padding-top: 3rem;
+      border-top: 2px solid var(--border);
+    }
+
+    .nav-link {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      padding: 1.5rem 2rem;
+      background: var(--light-gray);
+      border-left: 3px solid var(--mid-gray);
+    }
+
+    .nav-link:hover {
+      border-left-color: var(--accent);
+      background: #fff;
+      transform: translateX(8px);
+    }
+
+    .nav-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      font-weight: 600;
+    }
+
+    .nav-title {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* ============================================
+       PAGE 3: STEWARDSHIP - Patterns Styles
+       ============================================ */
+
+    .page-stewardship {
+      background: linear-gradient(180deg, #fff 0%, #fafafa 100%);
+    }
+
+    /* Stewardship Hero */
+    .stewardship-hero {
+      padding: 8rem 2rem 4rem;
+      max-width: 1000px;
+      position: relative;
+    }
+
+    .stewardship-bg-graphic {
+      position: absolute;
+      right: -100px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 400px;
+      height: 400px;
+      color: var(--accent);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .stewardship-bg-graphic svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .stewardship-header {
+      margin-bottom: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stewardship-header .subtitle {
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      color: var(--mid-gray);
+      font-weight: 400;
+      margin-top: 1rem;
+    }
+
+    .stewardship-intro {
+      max-width: 800px;
+    }
+
+    .intro-statement {
+      font-size: 1.35rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      color: var(--primary);
+    }
+
+    .stewardship-intro p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .pattern-tagline {
+      font-size: 1.25rem !important;
+      font-style: italic;
+      color: var(--accent) !important;
+      margin-top: 2.5rem !important;
+    }
+
+    /* Patterns Section */
+    .patterns-section {
+      padding: 6rem 2rem;
+      opacity: 0;
+      transition: opacity 0.6s ease-out;
+    }
+
+    .patterns-section.visible {
+      opacity: 1;
+    }
+
+    .patterns-container {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    /* Pattern Navigation Sidebar */
+    .pattern-nav {
+      position: sticky;
+      top: 6rem;
+    }
+
+    .pattern-nav-title {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      margin-bottom: 2rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .pattern-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .pattern-link {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      text-decoration: none;
+      padding: 1rem;
+      border-left: 3px solid transparent;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+
+    .pattern-link:hover {
+      background: rgba(212, 56, 28, 0.03);
+      border-left-color: var(--accent);
+    }
+
+    .pattern-link.active {
+      background: rgba(212, 56, 28, 0.05);
+      border-left-color: var(--accent);
+    }
+
+    .pattern-num {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .pattern-name {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary);
+      line-height: 1.3;
+    }
+
+    /* Pattern Cards */
+    .patterns-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      max-width: 800px;
+    }
+
+    .pattern-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 3rem;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .pattern-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 0;
+      background: var(--accent);
+      transition: height 0.4s ease;
+    }
+
+    .pattern-card:hover::before {
+      height: 100%;
+    }
+
+    .pattern-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+
+    /* Pattern Header */
+    .pattern-header {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .pattern-number {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      flex-shrink: 0;
+      opacity: 0.3;
+    }
+
+    .pattern-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 48px;
+      height: 48px;
+      color: var(--accent);
+      opacity: 0.2;
+      transition: opacity 0.3s ease;
+    }
+
+    .pattern-card:hover .pattern-icon {
+      opacity: 0.6;
+    }
+
+    .pattern-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .pattern-title-group h3 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .pattern-tool {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      font-weight: 600;
+    }
+
+    /* Pattern Body */
+    .pattern-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .pattern-section h4 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .pattern-section p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #333;
+      margin: 0;
+    }
+
+    /* Pattern 4 - Extended format */
+    .pattern-card-extended .pattern-body {
+      gap: 1.5rem;
+    }
+
+    .pattern-card-extended .pattern-body p {
+      margin-bottom: 0;
+    }
+
+    .outcome-statement {
+      margin-top: 1rem !important;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 1.125rem !important;
+    }
+
+    /* Stewardship Conclusion */
+    .stewardship-conclusion {
+      padding: 6rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      opacity: 0;
+      transition: opacity 0.6s ease-out;
+    }
+
+    .stewardship-conclusion.visible {
+      opacity: 1;
+    }
+
+    .conclusion-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+
+    .conclusion-statement {
+      padding: 3rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+    }
+
+    .conclusion-main {
+      font-size: 1.75rem !important;
+      line-height: 1.4 !important;
+      margin-bottom: 2rem !important;
+      color: var(--primary);
+    }
+
+    .conclusion-statement p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .conclusion-emphasis {
+      font-size: 1.5rem !important;
+      font-style: italic;
+      color: var(--accent) !important;
+      margin-top: 2rem !important;
+      margin-bottom: 0 !important;
+    }
+
+    /* ============================================
+       PAGE 4: LEVERAGE - Final Page Styles
+       ============================================ */
+
+    .page-leverage {
+      background: linear-gradient(180deg, #fafafa 0%, #fff 100%);
+    }
+
+    /* Leverage Hero */
+    .leverage-hero {
+      padding: 8rem 2rem 6rem;
+      max-width: 1000px;
+    }
+
+    .leverage-header {
+      margin-bottom: 4rem;
+    }
+
+    .leverage-header h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin: 0;
+    }
+
+    .leverage-content {
+      max-width: 800px;
+    }
+
+    .leverage-diagram {
+      width: 200px;
+      height: 120px;
+      margin: 0 auto 3rem;
+      color: var(--accent);
+    }
+
+    .leverage-diagram svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .leverage-diagram text {
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 600;
+    }
+
+    .leverage-statement {
+      font-size: 1.35rem;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+      color: var(--primary);
+    }
+
+    .leverage-content p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      color: #333;
+    }
+
+    .invisible-work {
+      margin-top: 3rem !important;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 1.15rem !important;
+    }
+
+    .leverage-tagline {
+      font-size: 2rem !important;
+      font-style: italic;
+      color: var(--accent) !important;
+      margin-top: 3rem !important;
+      margin-bottom: 0 !important;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      padding: 8rem 2rem;
+      background: var(--primary);
+      opacity: 0;
+      transition: opacity 0.6s ease-out;
+    }
+
+    .contact-section.visible {
+      opacity: 1;
+    }
+
+    .contact-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .contact-header {
+      margin-bottom: 4rem;
+      text-align: center;
+    }
+
+    .contact-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: #fff;
+      margin: 0;
+    }
+
+    /* Contact Grid */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 5rem;
+      margin-bottom: 4rem;
+      align-items: start;
+    }
+
+    /* Profile Column */
+    .contact-profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      position: sticky;
+      top: 6rem;
+    }
+
+    .profile-image {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    .profile-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-info {
+      text-align: center;
+    }
+
+    .profile-info h3 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .profile-info p {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0;
+    }
+
+    /* Contact Links */
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem 2.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-left: 3px solid transparent;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .contact-link:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-left-color: var(--accent);
+      transform: translateX(8px);
+    }
+
+    .contact-link-download {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .contact-link-download:hover {
+      background: var(--accent-light);
+      border-left-color: #fff;
+    }
+
+    .link-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .contact-link-download .link-icon {
+      color: #fff;
+    }
+
+    .link-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .link-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .link-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 600;
+    }
+
+    .link-value {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* Contact Footer */
+    .contact-footer {
+      padding-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+
+    .contact-footer p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Site Footer */
+    .site-footer {
+      background: #000;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .footer-content p {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- GLOBAL NAVIGATION -->
+  <nav class="global-nav">
+    <div class="nav-container">
+      <div class="nav-links">
+        <a href="#page-1-mandate" class="nav-item active" data-page="mandate">The Mandate</a>
+        <a href="#page-2-system" class="nav-item" data-page="system">The System</a>
+        <a href="#page-3-stewardship" class="nav-item" data-page="stewardship">Stewardship</a>
+        <a href="#page-4-leverage" class="nav-item" data-page="leverage">Leverage</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="site-wrapper">
+    <section id="page-1-mandate" class="page page-mandate">
+      <!-- SECTION 1.1 — HERO -->
+      <section class="section hero-mandate">
+        <!-- VERTICAL SIDE CONTEXT (fixed position) -->
+        <div class="hero-context">
+          <span class="context-item accent">Sarah Juptner</span>
+          <span class="context-item">Creative Operations</span>
+          <span class="context-item">Publishing Systems</span>
+          <span class="context-item">2017–Present</span>
+        </div>
+
+        <header class="hero-text">
+          <h1>When systems work, people barely notice them.</h1>
+          <h2>When they don't, complexity turns into chaos.</h2>
+          
+          <p class="hero-description">
+            I design systems that flow at scale, shaping how information moves across editorial,
+            operational, and reader-facing contexts without introducing friction or fragility.
+          </p>
+          
+          <div class="identity-block">
+            <p class="identity-name">I'm Sarah Juptner.</p>
+            <span class="identity-role">Creative Ops Lead</span>
+          </div>
+          
+          <h2>I build structures that let people focus on the work, not workarounds.</h2>
+        </header>
+        
+        <!-- TRANSITION / AUTHORITY SIGNAL - MARQUEE STYLE -->
+        <div class="authority-marquee">
+          <h2>BEFORE LAUNCH &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; BETWEEN TEAMS &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; AFTER TURNOVER &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; UNDER PRESSURE &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; BEFORE LAUNCH &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; BETWEEN TEAMS &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; AFTER TURNOVER &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; UNDER PRESSURE &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; BEFORE LAUNCH &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; BETWEEN TEAMS &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; AFTER TURNOVER &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; UNDER PRESSURE &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp;</h2>
+        </div>
+        
+        <!-- SCROLL CUE - ENHANCED -->
+        <div class="scroll-cue" id="scrollCue">
+          <span>SCROLL</span>
+          <span class="scroll-arrow"></span>
+        </div>
+      </section>
+      
+      <!-- SECTION 1.2 + 1.3 — PROOF + IMPLICATIONS -->
+      <section class="section proof-container fade-on-scroll">
+        <!-- SKIM SIDEBAR -->
+        <aside class="skim-sidebar">
+          <div class="skim-title">At a Glance</div>
+          <div class="skim-items">
+            <div class="skim-item">
+              <span class="skim-number">8+</span>
+              <span class="skim-label">Years in operations</span>
+            </div>
+            <div class="skim-item">
+              <span class="skim-number">10</span>
+              <span class="skim-label">Global markets</span>
+            </div>
+            <div class="skim-item">
+              <span class="skim-number">26+</span>
+              <span class="skim-label">Stakeholders coordinated</span>
+            </div>
+            <div class="skim-item">
+              <span class="skim-number">∞</span>
+              <span class="skim-label">Systems thinking</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <div class="proof-content">
+          <h2>
+            Over the past <strong>eight years</strong>, I've led and developed production and publishing systems
+            used by <strong>global, interdisciplinary teams</strong> operating across markets and mediums,
+            from print to digital, from static content to interactive experiences.
+            <br /><br />
+            As the <strong>senior operational owner</strong>, my mandate was not to optimize individual outputs,
+            but to <strong>reduce systemic risk</strong> across launches, handoffs, and change.
+          </h2>
+          <div class="implications">
+            Much of this work happens quietly: defining workflows, setting constraints, designing platforms,
+            and making decisions that reduce friction long after a project ships.
+            <br /><br />
+            When it fails, the consequences are visible and can lead to missed deadlines,
+            strained trust, and real commercial impact.
+          </div>
+        </div>
+      </section>
+      
+      <!-- SECTION 1.4 — ORIENTATION + CTA -->
+      <section class="section site-orientation fade-on-scroll-late">
+        <!-- LEFT COLUMN: Visual Statement -->
+        <div class="orientation-statement">
+          <div class="orientation-label">Navigation</div>
+          <h1>What This Site Is About</h1>
+          
+          <!-- Simple decorative graphic -->
+          <div class="orientation-graphic">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <!-- Grid pattern -->
+              <defs>
+                <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e0e0e0" stroke-width="0.5"/>
+                </pattern>
+              </defs>
+              <rect width="200" height="200" fill="url(#grid)" />
+              
+              <!-- Interconnected nodes representing systems -->
+              <circle cx="50" cy="50" r="4" fill="#d4381c" opacity="0.8"/>
+              <circle cx="100" cy="80" r="4" fill="#d4381c" opacity="0.8"/>
+              <circle cx="150" cy="50" r="4" fill="#d4381c" opacity="0.8"/>
+              <circle cx="100" cy="120" r="4" fill="#d4381c" opacity="0.8"/>
+              <circle cx="50" cy="150" r="4" fill="#d4381c" opacity="0.8"/>
+              <circle cx="150" cy="150" r="4" fill="#d4381c" opacity="0.8"/>
+              
+              <!-- Connecting lines -->
+              <line x1="50" y1="50" x2="100" y2="80" stroke="#d4381c" stroke-width="1" opacity="0.3"/>
+              <line x1="100" y1="80" x2="150" y2="50" stroke="#d4381c" stroke-width="1" opacity="0.3"/>
+              <line x1="100" y1="80" x2="100" y2="120" stroke="#d4381c" stroke-width="1" opacity="0.3"/>
+              <line x1="100" y1="120" x2="50" y2="150" stroke="#d4381c" stroke-width="1" opacity="0.3"/>
+              <line x1="100" y1="120" x2="150" y2="150" stroke="#d4381c" stroke-width="1" opacity="0.3"/>
+              <line x1="50" y1="50" x2="50" y2="150" stroke="#d4381c" stroke-width="1" opacity="0.15"/>
+              <line x1="150" y1="50" x2="150" y2="150" stroke="#d4381c" stroke-width="1" opacity="0.15"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Content -->
+        <div class="orientation-content">
+          <h2>This portfolio is not a collection of outputs.</h2>
+          
+          <div class="orientation-grid">
+            <div class="orientation-item">
+              <p>
+                It's a record of <strong>interventions</strong> — moments where systems were redesigned 
+                to scale participation, preserve quality, and create room for better decisions under pressure.
+              </p>
+            </div>
+            
+            <div class="orientation-item">
+              <p>
+                You'll see <strong>how those systems were built</strong>, the constraints that shaped them, 
+                and the deliberate choices that made them durable.
+              </p>
+            </div>
+            
+            <div class="orientation-item">
+              <p>
+                You'll see <strong>how they're stewarded</strong>, how teams adopt them without friction, 
+                and how they evolve under real delivery pressure.
+              </p>
+            </div>
+            
+            <div class="orientation-item">
+              <p>
+                And you'll see <strong>where they create leverage</strong> — the specific moments where 
+                structure removes ambiguity and allows better work to happen.
+              </p>
+            </div>
+          </div>
+
+          <div class="cta-block">
+            <p class="cta-text">Ready to see the systems in action?</p>
+            <a href="#page-2-system" class="cta">Explore the Work →</a>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- PAGE 2: THE SYSTEM -->
+    <section id="page-2-system" class="page page-system">
+      <!-- Hero for case study -->
+      <section class="section case-study-hero">
+        <div class="case-study-header">
+          <div class="case-label">Case Study</div>
+          <h1>Making Interactive Publishing Operable at Scale</h1>
+        </div>
+      </section>
+
+      <!-- Context Snapshot -->
+      <section class="section context-snapshot fade-on-scroll">
+        <div class="snapshot-layout">
+          <!-- Sticky sidebar with quick facts -->
+          <aside class="snapshot-sidebar">
+            <div class="snapshot-title">Context</div>
+            <div class="snapshot-items">
+              <div class="snapshot-item">
+                <span class="snapshot-label">Publishing Model</span>
+                <span class="snapshot-value">PDF flipbook</span>
+              </div>
+              <div class="snapshot-item">
+                <span class="snapshot-label">Objective</span>
+                <span class="snapshot-value">Interactive digital</span>
+              </div>
+              <div class="snapshot-item">
+                <span class="snapshot-label">Constraints</span>
+                <span class="snapshot-value">No dev team</span>
+              </div>
+              <div class="snapshot-item">
+                <span class="snapshot-label">Budget</span>
+                <span class="snapshot-value">€4,000</span>
+              </div>
+              <div class="snapshot-item">
+                <span class="snapshot-label">Ownership</span>
+                <span class="snapshot-value">End-to-end</span>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Main narrative sections -->
+          <div class="narrative-content">
+            <!-- The Problem -->
+            <div class="narrative-section">
+              <h2>The Problem</h2>
+              <p>
+                Digital publishing existed within the organization, but only as <strong>static PDF-based editions</strong> 
+                delivered through a flipbook-style platform. While this supported distribution, it did not support 
+                interactivity. Data visualization, animated elements, and responsive content had never been produced 
+                within the existing publishing model.
+              </p>
+              <p>
+                Leadership wanted to explore richer digital experiences, but doing so would require <strong>workflows, 
+                tooling, and standards that did not yet exist</strong>. Without a system, any attempt at interactivity 
+                would be fragile, specialist-dependent, and difficult to sustain under live publishing deadlines.
+              </p>
+              <p>
+                Although a full website redesign, which would open up the possibility of a more bespoke digital publishing 
+                system, was planned for a later phase, leadership needed a <strong>short-term solution that could operate 
+                within the current infrastructure</strong>. With a constrained budget of approximately €4,000, I was 
+                responsible for defining what was feasible, owning resourcing decisions and delivering outcomes for the 
+                digital transformation work described below.
+              </p>
+            </div>
+
+            <!-- The Decision -->
+            <div class="narrative-section">
+              <h2>The Decision</h2>
+              <p class="insight-callout">
+                The constraint was not technical capability, but operational reliability.
+              </p>
+              <p>
+                Interactive output could not depend on specialist knowledge if it was going to survive <strong>scale, 
+                turnover, and delivery pressure</strong>.
+              </p>
+              <p>
+                The decision was to redesign digital publishing as a <strong>system</strong> — one that encoded standards 
+                by default, reduced dependency on individual expertise, and held together as digital output increased. 
+                Rather than expanding the team or introducing complex tooling, the system itself would absorb complexity 
+                and enforce consistency.
+              </p>
+            </div>
+
+            <!-- The Intervention -->
+            <div class="narrative-section">
+              <h2>The Intervention</h2>
+              <p>
+                With live publishing deadlines, no engineering roadmap, and no in-house development team, I took 
+                ownership of digital publishing delivery. I <strong>scoped and staffed the minimum technical support 
+                required</strong>, made tooling decisions that reduced long-term vendor dependency, and shifted 
+                production capability upstream.
+              </p>
+              <p>
+                Instead of relying on expensive software or specialist workflows, editors and designers could 
+                <strong>assemble interactive digital books using familiar inputs</strong> such as print PDFs — 
+                with the system handling structure, validation, and output.
+              </p>
+              
+              <!-- Tools grid -->
+              <div class="tools-grid">
+                <div class="tool-card">
+                  <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M3 3v18h18"/>
+                      <path d="M18 17V9"/>
+                      <path d="M13 17V5"/>
+                      <path d="M8 17v-3"/>
+                    </svg>
+                  </div>
+                  <div class="tool-number">01</div>
+                  <h4>No-code data visualization</h4>
+                  <p>Enforced styling to prevent visual drift</p>
+                </div>
+                <div class="tool-card">
+                  <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                      <path d="M8 7h8"/>
+                      <path d="M8 11h8"/>
+                      <path d="M8 15h6"/>
+                    </svg>
+                  </div>
+                  <div class="tool-number">02</div>
+                  <h4>Digital book editor</h4>
+                  <p>For structuring and exporting publications</p>
+                </div>
+                <div class="tool-card">
+                  <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <line x1="9" y1="15" x2="15" y2="15"/>
+                      <line x1="12" y1="12" x2="12" y2="18"/>
+                    </svg>
+                  </div>
+                  <div class="tool-number">03</div>
+                  <h4>Automated PDF parsing</h4>
+                  <p>To eliminate manual production overhead</p>
+                </div>
+                <div class="tool-card">
+                  <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="3" width="20" height="14" rx="2"/>
+                      <path d="M8 21h8"/>
+                      <path d="M12 17v4"/>
+                      <path d="M7 8h10"/>
+                      <path d="M7 12h10"/>
+                    </svg>
+                  </div>
+                  <div class="tool-number">04</div>
+                  <h4>Responsive e-book generator</h4>
+                  <p>Supporting interactive and multimedia content</p>
+                </div>
+                <div class="tool-card">
+                  <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="3" width="18" height="18" rx="2"/>
+                      <path d="M9 3v18"/>
+                      <path d="M3 9h18"/>
+                      <path d="M3 15h6"/>
+                      <path d="M9 9h6v6H9z"/>
+                    </svg>
+                  </div>
+                  <div class="tool-number">05</div>
+                  <h4>Templated cover system</h4>
+                  <p>To enforce brand consistency</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- The Impact -->
+            <div class="narrative-section impact-section">
+              <h2>The Impact</h2>
+              <p>
+                Digital editions became <strong>genuinely interactive</strong> while remaining consistent, repeatable, 
+                and easy to evolve — without increasing technical debt or operational risk.
+              </p>
+              
+              <div class="impact-grid">
+                <div class="impact-stat">
+                  <div class="stat-number">0%</div>
+                  <div class="stat-label">Increase in reader engagement for interactive digital editions, validating the shift from static distribution to interactive publishing</div>
+                </div>
+                <div class="impact-stat">
+                  <div class="stat-number">0%</div>
+                  <div class="stat-label">Gain in production efficiency across the ebook lifecycle, driven by standardized tooling</div>
+                </div>
+                <div class="impact-stat">
+                  <div class="stat-number">180 min</div>
+                  <div class="stat-label">To produce a page, down from approximately 3 hours, enabling faster iteration under live publishing deadlines</div>
+                </div>
+                <div class="impact-stat">
+                  <div class="stat-number">0+</div>
+                  <div class="stat-label">Hours saved annually through workflow automation, reducing specialist dependency</div>
+                </div>
+              </div>
+
+              <p class="impact-summary">
+                Together, these outcomes shifted interactive publishing from a <strong>one-off experiment</strong> 
+                into a <strong>durable, repeatable capability</strong>.
+              </p>
+
+              <p class="impact-summary" style="border-top: none; padding-top: 0; margin-top: 1.5rem;">
+                Once in place, the system required <strong>stewardship</strong> rather than constant intervention — 
+                ensuring consistency, reliability, and trust as usage scaled across teams and markets.
+              </p>
+            </div>
+
+            <!-- Emergent Outcomes -->
+            <div class="narrative-section emergent-section">
+              <h2>Emergent Outcomes</h2>
+              <div class="emergent-callout">
+                <div class="emergent-graphic">
+                  <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 70 L25 50 L40 55 L55 30 L70 10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="70" cy="10" r="3" fill="currentColor"/>
+                    <polyline points="60 10 70 10 70 20" fill="none"/>
+                  </svg>
+                </div>
+                <p>
+                  What began as a constrained operational problem <strong>reshaped how digital publishing was 
+                  understood internally</strong>. Moving beyond static distribution unlocked new forms of engagement 
+                  and possibility, including <strong>animated advertising formats that created entirely new revenue 
+                  streams</strong> for the company.
+                </p>
+              </div>
+            </div>
+
+            <!-- Navigation to next section -->
+            <div class="section-nav">
+              <a href="#page-3-stewardship" class="nav-link">
+                <span class="nav-label">Next</span>
+                <span class="nav-title">See stewardship in practice →</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- PAGE 3: STEWARDSHIP -->
+    <section id="page-3-stewardship" class="page page-stewardship">
+      <!-- Hero -->
+      <section class="section stewardship-hero">
+        <div class="stewardship-bg-graphic">
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <!-- Layered system representation -->
+            <g opacity="0.03">
+              <!-- Layer 1 -->
+              <rect x="50" y="80" width="300" height="60" rx="4" fill="none" stroke="currentColor" stroke-width="1"/>
+              <line x1="70" y1="110" x2="330" y2="110" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+              <!-- Layer 2 -->
+              <rect x="50" y="160" width="300" height="60" rx="4" fill="none" stroke="currentColor" stroke-width="1"/>
+              <line x1="70" y1="190" x2="330" y2="190" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+              <!-- Layer 3 -->
+              <rect x="50" y="240" width="300" height="60" rx="4" fill="none" stroke="currentColor" stroke-width="1"/>
+              <line x1="70" y1="270" x2="330" y2="270" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+              <!-- Connecting lines between layers -->
+              <line x1="200" y1="140" x2="200" y2="160" stroke="currentColor" stroke-width="1"/>
+              <line x1="200" y1="220" x2="200" y2="240" stroke="currentColor" stroke-width="1"/>
+              <!-- Nodes -->
+              <circle cx="100" cy="110" r="3" fill="currentColor"/>
+              <circle cx="200" cy="110" r="3" fill="currentColor"/>
+              <circle cx="300" cy="110" r="3" fill="currentColor"/>
+              <circle cx="150" cy="190" r="3" fill="currentColor"/>
+              <circle cx="250" cy="190" r="3" fill="currentColor"/>
+              <circle cx="100" cy="270" r="3" fill="currentColor"/>
+              <circle cx="200" cy="270" r="3" fill="currentColor"/>
+              <circle cx="300" cy="270" r="3" fill="currentColor"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="stewardship-header">
+          <div class="case-label">Stewardship</div>
+          <h1>Patterns of Leadership</h1>
+          <h2 class="subtitle">Designing systems that support teams long after decisions are made</h2>
+        </div>
+
+        <div class="stewardship-intro">
+          <p class="intro-statement">
+            Leadership at scale isn't expressed through constant intervention. It shows up in the 
+            <strong>systems that quietly guide teams</strong> when you're not in the room.
+          </p>
+          <p>
+            Across roles and organizations, I've focused on building structures that reduce ambiguity, 
+            surface priorities, and help teams coordinate without friction.
+          </p>
+          <p class="pattern-tagline">These aren't one-off tools. They're <strong>patterns</strong>.</p>
+        </div>
+      </section>
+
+      <!-- Patterns Grid -->
+      <section class="section patterns-section fade-on-scroll">
+        <div class="patterns-container">
+          <!-- Pattern Navigation Sidebar -->
+          <aside class="pattern-nav">
+            <div class="pattern-nav-title">Patterns</div>
+            <nav class="pattern-links">
+              <a href="#pattern-1" class="pattern-link active">
+                <span class="pattern-num">01</span>
+                <span class="pattern-name">Shared Reality</span>
+              </a>
+              <a href="#pattern-2" class="pattern-link">
+                <span class="pattern-num">02</span>
+                <span class="pattern-name">Standards at Speed</span>
+              </a>
+              <a href="#pattern-3" class="pattern-link">
+                <span class="pattern-num">03</span>
+                <span class="pattern-name">Embedded Accountability</span>
+              </a>
+              <a href="#pattern-4" class="pattern-link">
+                <span class="pattern-num">04</span>
+                <span class="pattern-name">Stewardship Over Control</span>
+              </a>
+            </nav>
+          </aside>
+
+          <!-- Patterns Content -->
+          <div class="patterns-content">
+            <!-- PATTERN 1 -->
+            <article id="pattern-1" class="pattern-card">
+              <div class="pattern-header">
+                <div class="pattern-number">01</div>
+                <div class="pattern-title-group">
+                  <h3>Shared reality over status updates</h3>
+                  <div class="pattern-tool">The Project Master</div>
+                </div>
+                <div class="pattern-icon">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="24" r="4"/>
+                    <circle cx="24" cy="12" r="4"/>
+                    <circle cx="36" cy="24" r="4"/>
+                    <circle cx="24" cy="36" r="4"/>
+                    <line x1="15" y1="22" x2="21" y2="14"/>
+                    <line x1="27" y1="14" x2="33" y2="22"/>
+                    <line x1="33" y1="26" x2="27" y2="34"/>
+                    <line x1="21" y1="34" x2="15" y2="26"/>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="pattern-body">
+                <div class="pattern-section">
+                  <h4>Problem</h4>
+                  <p>
+                    Before the Project Master existed, progress lived in <strong>spreadsheets, meetings, 
+                    and personal updates</strong>. Executives depended on me to translate scattered signals 
+                    into decisions.
+                  </p>
+                </div>
+
+                <div class="pattern-section">
+                  <h4>Intervention</h4>
+                  <p>
+                    I designed a <strong>single system that defined what "progress" meant</strong>, using 
+                    standardized categories and weighted completion thresholds, so anyone could see where 
+                    a project stood at a glance. Once a project reached a verified level of readiness, 
+                    production could begin without debate or false starts.
+                  </p>
+                </div>
+
+                <div class="pattern-section">
+                  <h4>Outcome</h4>
+                  <p>
+                    The result was <strong>visibility and alignment without escalation</strong>. Clear 
+                    readiness thresholds reduced anxiety during high-pressure cycles and removed last-minute 
+                    heroics from the process. New contributors could work with confidence, without waiting 
+                    for approval or constant clarification.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- PATTERN 2 -->
+            <article id="pattern-2" class="pattern-card">
+              <div class="pattern-header">
+                <div class="pattern-number">02</div>
+                <div class="pattern-title-group">
+                  <h3>Standards at speed</h3>
+                  <div class="pattern-tool">The Project Master</div>
+                </div>
+                <div class="pattern-icon">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="18" y="12" width="12" height="16" rx="1"/>
+                    <path d="M24 28v8"/>
+                    <circle cx="24" cy="20" r="2"/>
+                    <path d="M12 32h24"/>
+                    <path d="M14 36h20"/>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="pattern-body">
+                <div class="pattern-section">
+                  <h4>Problem</h4>
+                  <p>Flexibility is useful until it obscures risk.</p>
+                </div>
+
+                <div class="pattern-section">
+                  <h4>Intervention</h4>
+                  <p>
+                    To prevent premature production and downstream delays, I made certain decisions 
+                    <strong>non-negotiable</strong>. Projects could only advance once critical dependencies 
+                    were met. Timelines were allowed to shift, but readiness had to be provable.
+                  </p>
+                </div>
+
+                <div class="pattern-section">
+                  <h4>Outcome</h4>
+                  <p>
+                    This removed the temptation to "start anyway" and <strong>protected teams from rework, 
+                    last-minute scrambles, and stalled launches</strong>.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- PATTERN 3 -->
+            <article id="pattern-3" class="pattern-card">
+              <div class="pattern-header">
+                <div class="pattern-number">03</div>
+                <div class="pattern-title-group">
+                  <h3>Embedded accountability</h3>
+                  <div class="pattern-tool">The automated Gantt chart</div>
+                </div>
+                <div class="pattern-icon">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="8" y="8" width="32" height="32" rx="2"/>
+                    <line x1="8" y1="16" x2="40" y2="16"/>
+                    <line x1="16" y1="8" x2="16" y2="40"/>
+                    <rect x="18" y="20" width="8" height="4" fill="currentColor" opacity="0.3"/>
+                    <rect x="26" y="26" width="10" height="4" fill="currentColor" opacity="0.3"/>
+                    <rect x="18" y="32" width="6" height="4" fill="currentColor" opacity="0.3"/>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="pattern-body">
+                <div class="pattern-section">
+                  <h4>Problem</h4>
+                  <p>
+                    As teams grew and new journalists were onboarded, relying on <strong>ad hoc guidance 
+                    no longer worked</strong>. Expectations needed to be visible without intervention.
+                  </p>
+                </div>
+
+                <div class="pattern-section">
+                  <h4>Intervention</h4>
+                  <p>
+                    I standardized the project lifecycle through <strong>automated Gantt timelines embedded 
+                    directly into project trackers</strong>. Responsibilities, handoffs, and deadlines were 
+                    no longer inferred — they were explicit.
+                  </p>
+                </div>
+
+                <div class="pattern-section">
+                  <h4>Outcome</h4>
+                  <p>
+                    Editors spent less time orienting contributors. New team members could anticipate their 
+                    work without special attention. <strong>Ownership became clearer without additional 
+                    process</strong>.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- PATTERN 4 -->
+            <article id="pattern-4" class="pattern-card pattern-card-extended">
+              <div class="pattern-header">
+                <div class="pattern-number">04</div>
+                <div class="pattern-title-group">
+                  <h3>Stewardship over control</h3>
+                </div>
+                <div class="pattern-icon">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M24 8v32"/>
+                    <path d="M12 16l12-6 12 6"/>
+                    <path d="M12 24l12 8 12-8"/>
+                    <circle cx="24" cy="24" r="3" fill="currentColor" opacity="0.3"/>
+                    <path d="M16 20v8"/>
+                    <path d="M32 20v8"/>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="pattern-body">
+                <p>
+                  Not everyone adopted these systems immediately. In some cases, leaders preferred 
+                  <strong>personal updates over shared tools</strong>.
+                </p>
+                <p>
+                  I held the line by <strong>redirecting decisions back to the system</strong> and 
+                  explaining the long-term value of shared visibility. Over time, ad hoc updates gave 
+                  way to a common understanding of progress, reducing status checks, surfacing risk 
+                  earlier, and lowering escalation to me.
+                </p>
+                <p>
+                  Stewardship meant <strong>maintaining the integrity of the system</strong> even when 
+                  it would have been easier to intervene.
+                </p>
+                <p class="outcome-statement">
+                  The result wasn't more process. It was <strong>calmer teams, clearer ownership, and 
+                  more room for creative judgment under pressure</strong>.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Conclusion -->
+      <section class="section stewardship-conclusion fade-on-scroll-late">
+        <div class="conclusion-content">
+          <div class="conclusion-statement">
+            <p class="conclusion-main">
+              These systems didn't eliminate complexity. They made it <strong>navigable</strong>.
+            </p>
+            <p>
+              They allowed work to move forward without constant clarification, protected teams from 
+              avoidable friction, and ensured that progress didn't depend on any one person being present.
+            </p>
+            <p class="conclusion-emphasis">That's stewardship.</p>
+          </div>
+
+          <div class="section-nav">
+            <a href="#page-4-leverage" class="nav-link">
+              <span class="nav-label">Next</span>
+              <span class="nav-title">See where leverage emerges →</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- PAGE 4: LEVERAGE -->
+    <section id="page-4-leverage" class="page page-leverage">
+      <!-- Leverage Hero -->
+      <section class="section leverage-hero">
+        <div class="leverage-header">
+          <div class="case-label">Leverage</div>
+          <h1>Not all work carries the same weight.</h1>
+        </div>
+
+        <div class="leverage-content">
+          <div class="leverage-diagram">
+            <svg viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="2">
+              <!-- Fulcrum -->
+              <path d="M90 100 L100 85 L110 100 Z" fill="currentColor" opacity="0.3"/>
+              <!-- Lever -->
+              <line x1="40" y1="85" x2="160" y2="55" stroke-width="3"/>
+              <!-- Weight (small effort) -->
+              <circle cx="40" cy="85" r="8" fill="currentColor" opacity="0.4"/>
+              <text x="40" y="105" font-size="10" text-anchor="middle" fill="currentColor" opacity="0.6">Small effort</text>
+              <!-- Result (big impact) -->
+              <circle cx="160" cy="55" r="14" fill="currentColor" opacity="0.6"/>
+              <text x="160" y="40" font-size="10" text-anchor="middle" fill="currentColor" opacity="0.6">Big impact</text>
+              <!-- Arrow showing direction -->
+              <path d="M150 60 L165 45" stroke="currentColor" opacity="0.4" stroke-width="2"/>
+              <polyline points="160 42 165 45 162 50" fill="currentColor" opacity="0.4"/>
+            </svg>
+          </div>
+
+          <p class="leverage-statement">
+            In complex organizations, <strong>effort is everywhere</strong>. Impact is harder to find.
+          </p>
+          
+          <p class="leverage-statement">
+            Leverage comes from recognizing where a <strong>small structural decision can remove 
+            friction across teams</strong> and acting there instead of adding process, meetings, or headcount.
+          </p>
+          
+          <p>
+            I architect systems for moments when <strong>growth, complexity, and creative ambition 
+            collide</strong>. My role was not to increase throughput at any cost, but to protect delivery 
+            quality and organizational trust over time.
+          </p>
+          
+          <p class="invisible-work">
+            The work I'm most proud of is often <strong>invisible</strong>. It shows up when teams can 
+            move forward without stopping to ask, clarify, or escalate because the system already supports 
+            the decision.
+          </p>
+
+          <p class="leverage-tagline">That's leverage.</p>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="section contact-section fade-on-scroll">
+        <div class="contact-container">
+          <div class="contact-header">
+            <h2>This is where the conversation begins.</h2>
+          </div>
+
+          <div class="contact-grid">
+            <!-- Profile Column -->
+            <div class="contact-profile">
+              <div class="profile-image">
+                <img src="/mnt/user-data/uploads/WhatsApp_Image_2026-01-25_at_10_10_26_PM.jpeg" alt="Sarah Juptner" />
+              </div>
+              <div class="profile-info">
+                <h3>Sarah Juptner</h3>
+                <p>Creative Operations Director</p>
+              </div>
+            </div>
+
+            <!-- Contact Links -->
+            <div class="contact-links">
+              <a href="mailto:sarah.juptner@gmail.com" class="contact-link">
+                <div class="link-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </div>
+                <div class="link-content">
+                  <div class="link-label">Email</div>
+                  <div class="link-value">sarah.juptner@gmail.com</div>
+                </div>
+              </a>
+
+              <a href="https://www.linkedin.com/in/sarah-juptner/" target="_blank" rel="noopener noreferrer" class="contact-link">
+                <div class="link-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                    <rect x="2" y="9" width="4" height="12"/>
+                    <circle cx="4" cy="4" r="2"/>
+                  </svg>
+                </div>
+                <div class="link-content">
+                  <div class="link-label">LinkedIn</div>
+                  <div class="link-value">View Profile</div>
+                </div>
+              </a>
+
+              <a href="#cv-download" class="contact-link contact-link-download">
+                <div class="link-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                </div>
+                <div class="link-content">
+                  <div class="link-label">Resume</div>
+                  <div class="link-value">Download CV</div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Footer note -->
+          <div class="contact-footer">
+            <p>
+              Looking for someone who can design operational systems that scale, bridge technical and 
+              business requirements, and lead teams through complexity? Let's talk.
+            </p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-content">
+        <p>&copy; 2026 Sarah Juptner. All rights reserved.</p>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Global state for animations
+    let numbersAnimated = false;
+    
+    // Scroll Cue - Enhanced with auto-hide
+    let scrollTimeout;
+    const scrollCue = document.getElementById('scrollCue');
+    
+    // Hide after 5 seconds
+    setTimeout(() => {
+      scrollCue.classList.add('hidden');
+    }, 5000);
+
+    // Hide on scroll
+    window.addEventListener('scroll', () => {
+      scrollCue.classList.add('hidden');
+    }, { once: true });
+
+    // Scroll-triggered animations
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-on-scroll, .fade-on-scroll-late, .proof-container, .patterns-section, .contact-section, .context-snapshot, .stewardship-conclusion').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Setup stats animation observer (like in uploaded file)
+    function setupStatsObserver() {
+      const impactSection = document.querySelector('.impact-section');
+      
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !numbersAnimated) {
+            animateCounters();
+            numbersAnimated = true;
+          }
+        });
+      }, {
+        threshold: 0.3,
+        rootMargin: '0px'
+      });
+
+      if (impactSection) {
+        statsObserver.observe(impactSection);
+      }
+    }
+
+    // Initialize stats observer
+    setupStatsObserver();
+
+    // Easing function for smooth animation (from uploaded file)
+    function easeOutExpo(t) {
+      return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    }
+
+    // Animate a single number counting UP
+    function animateNumberUp(element, target, suffix) {
+      const duration = 2000;
+      const startTime = performance.now();
+      const numberSpan = element.querySelector('.stat-number');
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easedProgress = easeOutExpo(progress);
+        const currentValue = Math.floor(easedProgress * target);
+
+        const formattedNumber = currentValue.toLocaleString('en-US');
+        numberSpan.textContent = formattedNumber + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    // Animate a single number counting DOWN (for time stat)
+    function animateNumberDown(element, startValue, endValue, suffix) {
+      const duration = 2000;
+      const startTime = performance.now();
+      const numberSpan = element.querySelector('.stat-number');
+      const range = startValue - endValue;
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easedProgress = easeOutExpo(progress);
+        const currentValue = Math.floor(startValue - (easedProgress * range));
+
+        numberSpan.textContent = currentValue + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    // Counter animation function
+    function animateCounters() {
+      if (numbersAnimated) return;
+      numbersAnimated = true;
+      
+      const statItems = document.querySelectorAll('.impact-stat');
+      
+      // Animate each stat with staggered timing
+      setTimeout(() => animateNumberUp(statItems[0], 200, '%'), 0);
+      setTimeout(() => animateNumberUp(statItems[1], 92, '%'), 200);
+      setTimeout(() => animateNumberDown(statItems[2], 180, 15, ' min'), 400); // COUNT DOWN from 180 to 15
+      setTimeout(() => animateNumberUp(statItems[3], 1500, '+'), 600);
+    }
+
+    // Global navigation - track active page
+    const navObserver = new IntersectionObserver((entries) => {
+      // Find the most visible page
+      let mostVisible = null;
+      let maxRatio = 0;
+      
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+          maxRatio = entry.intersectionRatio;
+          mostVisible = entry.target;
+        }
+      });
+      
+      // Update active state for the most visible page
+      if (mostVisible) {
+        const pageId = mostVisible.id;
+        const navItems = document.querySelectorAll('.nav-item');
+        
+        navItems.forEach(item => {
+          item.classList.remove('active');
+          const href = item.getAttribute('href').substring(1); // Remove #
+          if (href === pageId) {
+            item.classList.add('active');
+          }
+        });
+      }
+    }, {
+      threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+      rootMargin: '-70px 0px -30% 0px'
+    });
+
+    // Observe all page sections
+    document.querySelectorAll('.page').forEach(page => {
+      navObserver.observe(page);
+    });
+
+    // Pattern navigation - FIXED to track visible patterns
+    const patternObserver = new IntersectionObserver((entries) => {
+      // Find the most visible pattern
+      let mostVisible = null;
+      let maxRatio = 0;
+      
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+          maxRatio = entry.intersectionRatio;
+          mostVisible = entry.target;
+        }
+      });
+      
+      // Update active state for the most visible pattern
+      if (mostVisible) {
+        const patternId = mostVisible.id;
+        const patternLinks = document.querySelectorAll('.pattern-link');
+        
+        patternLinks.forEach(link => {
+          link.classList.remove('active');
+          const href = link.getAttribute('href').substring(1); // Remove #
+          if (href === patternId) {
+            link.classList.add('active');
+          }
+        });
+      }
+    }, {
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+      rootMargin: '-150px 0px -40% 0px'
+    });
+
+    // Observe all pattern cards
+    document.querySelectorAll('.pattern-card').forEach(pattern => {
+      patternObserver.observe(pattern);
+    });
+
+    // Smooth scroll for all internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        
+        // Skip if it's a placeholder link
+        if (href === '#cv-download') {
+          e.preventDefault();
+          return;
+        }
+        
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          const navHeight = 70; // Height of fixed nav
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
