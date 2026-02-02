@@ -1,1 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sarah Juptner — Creative Operations & Systems</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2QSMQDW1EV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-2QSMQDW1EV');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Lora:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #1a1a1a;
+      --accent: #d4381c;
+      --light-gray: #f8f8f8;
+      --mid-gray: #666;
+      --border: #e0e0e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      touch-action: manipulation;
+    }
+
+    body {
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--primary);
+      background: #fff;
+      overflow-x: hidden;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    input,
+    textarea {
+      -webkit-user-select: text;
+      user-select: text;
+    }
+
+    /* Mobile Navigation */
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      padding: 0.1rem 0.5rem;
+    }
+
+    .mobile-nav.nav-hidden {
+      transform: translateY(-100%);
+    }
+
+    .nav-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 100%;
+      margin: 0 auto;
+      /* Add this */
+    }
+
+    .nav-logo {
+      font-family: 'Lora', serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--primary);
+    }
+
+    .menu-toggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      color: #d4381c;
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
+      /* Add this to prevent button from shrinking */
+    }
+
+    .nav-menu {
+      display: none;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-top: 0.5rem;
+      margin-top: 0.5rem;
+      border-top: 1px solid var(--border);
+      max-width: 100%;
+      /* Add this */
+      overflow-x: hidden;
+      /* Add this to prevent horizontal overflow */
+    }
+
+    .nav-menu.open {
+      display: flex;
+    }
+
+    .nav-link {
+      font-family: 'Lora', serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      text-decoration: none;
+      padding: 0.75rem 0;
+      transition: color 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+      word-wrap: break-word;
+    }
+
+    .nav-link:active {
+      color: var(--accent);
+    }
+
+    /* Main Content */
+    .site-wrapper {
+      padding-top: 70px;
+    }
+
+    .section {
+      padding: 2rem 1.25rem;
+    }
+
+    /* Typography */
+    h1 {
+      font-family: 'Lora', serif;
+      font-weight: 700;
+      font-size: 2rem;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-family: 'Lora', serif;
+      font-weight: 400;
+      font-size: 1.5rem;
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+
+    h3 {
+      font-family: 'Lora', serif;
+      font-weight: 600;
+      font-size: 1.125rem;
+      line-height: 1.4;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    strong {
+      font-weight: 700;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: linear-gradient(180deg, #fafafa 0%, #fff 100%);
+      padding: 3rem 1.25rem;
+    }
+
+    .hero-title {
+      margin-bottom: 0.5rem;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .hero-subtitle {
+      color: var(--mid-gray);
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.6s ease-out 0.2s both;
+    }
+
+    .hero-description {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.6s ease-out 0.4s both;
+    }
+
+    .identity-block {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 2rem 0;
+      animation: fadeInUp 0.6s ease-out 0.6s both;
+    }
+
+    .identity-name {
+      font-family: 'Lora', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .identity-role {
+      font-family: 'Lora', serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      padding: 0.5rem 1rem;
+      background: rgba(212, 56, 28, 0.08);
+      border-left: 3px solid var(--accent);
+      align-self: flex-start;
+    }
+
+    /* Authority Marquee */
+    .authority-section {
+      padding: 2rem 1.25rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .authority-label {
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      margin-bottom: 1rem;
+    }
+
+    .authority-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .authority-item {
+      font-family: 'Lora', serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary);
+      padding: 0.75rem;
+      background: var(--light-gray);
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    /* Impact Stats */
+    .impact-section {
+      background: var(--light-gray);
+      padding: 3rem 1.25rem;
+    }
+
+    .stewardship-section {
+      background: var(--light-gray);
+      padding: 3rem 1.25rem;
+    }
+
+    .leverage-section {
+      background: var(--light-gray);
+      padding: 3rem 1.25rem;
+    }
+
+
+    .section-header {
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      margin-bottom: 2rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .snap-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .snap-grid>*:last-child {
+      grid-column: 1 / -1;
+      width: calc((100% - 1.5rem) / 2);
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .stat-number {
+      font-family: 'Lora', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-family: 'Lora', serif;
+      font-size: 0.875rem;
+      line-height: 1.4;
+      color: var(--mid-gray);
+    }
+
+    .snap-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .snap-number {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .snap-label {
+      font-family: 'Lora', serif;
+      font-size: 0.875rem;
+      line-height: 1.4;
+      color: var(--mid-gray);
+    }
+
+    /* Proof Section */
+    .proof-section {
+      padding: 3rem 1.25rem;
+    }
+
+    .proof-card {
+      background: var(--light-gray);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    .proof-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .proof-icon {
+      width: 48px;
+      height: 48px;
+      background: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .proof-title {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .proof-description {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: var(--mid-gray);
+      margin-bottom: 0;
+    }
+
+    /* Patterns Section */
+    .patterns-section {
+      background: var(--light-gray);
+      padding: 3rem 1.25rem;
+    }
+
+    .pattern-card {
+      background: white;
+      padding: 2rem 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .pattern-number {
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .pattern-title {
+      font-family: 'Lora', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .pattern-description {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .pattern-examples {
+      background: var(--light-gray);
+      padding: 1rem;
+      border-radius: 4px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .pattern-examples-title {
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      margin-bottom: 0.75rem;
+    }
+
+    .pattern-examples ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .pattern-examples li {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--mid-gray);
+      margin-bottom: 0.5rem;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .pattern-examples li:before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Context Section */
+    .context-section {
+      padding: 3rem 1.25rem;
+    }
+
+    .context-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .context-card {
+      background: var(--light-gray);
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+
+    .context-title {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+    }
+
+    .context-item {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--mid-gray);
+      margin-bottom: 0.5rem;
+    }
+
+    .context-item:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      background: var(--primary);
+      color: white;
+      padding: 3rem 1.25rem;
+    }
+
+    .contact-section .section-header {
+      color: var(--accent);
+    }
+
+    .contact-section h2 {
+      color: white;
+    }
+
+    .contact-section p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .contact-methods {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: white;
+      text-decoration: none;
+      font-family: 'Lora', serif;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .contact-button:active {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(0.98);
+    }
+
+    .contact-icon {
+      font-size: 1.25rem;
+    }
+
+    /* Copy Notification */
+    .copy-notification {
+      position: fixed;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      font-family: 'Lora', serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: bottom 0.3s ease;
+      z-index: 2000;
+    }
+
+    .copy-notification.show {
+      bottom: 2rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      top: 25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Lora', serif;
+      font-size: 2rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: rgb(212, 56, 28, 0.25);
+      opacity: 0;
+      animation:
+        fadeInUpCentered 0.6s ease-out 0.8s both,
+        bounceCentered 2s ease-in-out 1.4s both,
+        fadeOutCentered 0.5s ease-out 3.4s both;
+    }
+
+    @keyframes fadeInUpCentered {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    @keyframes bounceCentered {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(-10px);
+      }
+    }
+
+    @keyframes fadeOutCentered {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    /* Utilities */
+    .text-center {
+      text-align: center;
+    }
+
+    /* Responsive adjustments for larger phones */
+    @media (min-width: 400px) {
+      body {
+        font-size: 19px;
+      }
+
+      h1 {
+        font-size: 2.25rem;
+      }
+
+      h2 {
+        font-size: 1.625rem;
+      }
+
+      .hero-description {
+        font-size: 1.1875rem;
+      }
+    }
+
+    .snap-card {
+      position: relative;
+    }
+
+    .snap-card svg {
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      width: 64px;
+      height: 64px;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .snap-number,
+    .snap-label {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Authority Marquee */
+    .authority-section {
+      padding: 2rem 1.25rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      /* ADD THIS - contains the marquee */
+    }
+
+    .authority-marquee {
+      position: relative;
+      /* ADD THIS */
+      padding: 2rem 0;
+      /* ADD THIS for spacing */
+      overflow: hidden;
+      /* ADD THIS - critical for containing animation */
+    }
+
+    .authority-marquee::before,
+    .authority-marquee::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%);
+      /* REMOVE: overflow: hidden; */
+    }
+
+    .authority-marquee::before {
+      top: 0;
+    }
+
+    .authority-marquee::after {
+      bottom: 0;
+    }
+
+    .authority-marquee h2 {
+      font-family: 'Lora', serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: var(--mid-gray);
+      margin: 0;
+      white-space: nowrap;
+      display: inline-block;
+      animation: marqueeScroll 30s linear infinite;
+      /* REMOVE: overflow: hidden; */
+    }
+
+    @keyframes marqueeScroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav">
+    <div class="nav-header">
+      <div class="nav-logo"></div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+    </div>
+    <div class="nav-menu" id="navMenu">
+      <a href="#mandate" class="nav-link">The Mandate</a>
+      <a href="#system" class="nav-link">The System</a>
+      <a href="#stewardship" class="nav-link">Stewardship</a>
+      <a href="#leverage" class="nav-link">Leverage</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="site-wrapper">
+    <!-- Hero Section -->
+    <section id="mandate" class="hero-section">
+      <h1 class="hero-title">When systems work, people barely notice them.</h1>
+      <h2 class="hero-subtitle">When they don't, complexity turns into chaos.</h2>
+
+      <p class="hero-description">
+        I design systems that flow at scale, shaping how information moves across editorial,
+        operational, and reader-facing contexts without introducing friction or fragility.
+      </p>
+
+      <div class="identity-block">
+        <div class="identity-name">I'm Sarah Juptner.</div>
+        <div class="identity-role">Creative Ops Director</div>
+      </div>
+
+      <h2 class="hero-subtitle" style="margin-top: 1.5rem;">
+        I build structures that let people focus on the work, not workarounds.
+      </h2>
+
+      <div class="scroll-indicator">Scroll ↑</div>
+    </section>
+
+    <!-- Authority Section -->
+    <section class="authority-section">
+      <div class="authority-marquee">
+        <h2>BEFORE LAUNCH &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; BETWEEN TEAMS &nbsp;&nbsp;&nbsp;&nbsp; •
+          &nbsp;&nbsp;&nbsp;&nbsp; AFTER TURNOVER &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; UNDER PRESSURE
+          &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; BEFORE LAUNCH &nbsp;&nbsp;&nbsp;&nbsp; •
+          &nbsp;&nbsp;&nbsp;&nbsp; BETWEEN TEAMS &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; AFTER TURNOVER
+          &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; UNDER PRESSURE &nbsp;&nbsp;&nbsp;&nbsp; •
+          &nbsp;&nbsp;&nbsp;&nbsp; BEFORE LAUNCH &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; BETWEEN TEAMS
+          &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; AFTER TURNOVER &nbsp;&nbsp;&nbsp;&nbsp; •
+          &nbsp;&nbsp;&nbsp;&nbsp; UNDER PRESSURE &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp;</h2>
+      </div>
+    </section>
+
+    <section id="glance" class="impact-section">
+      <div class="section-header" style="font-size: medium; font-weight: bold;">At a Glance
+      </div>
+      <h2 class="section-title"> Over the past <strong>eight years</strong>, I've led and developed production and
+        publishing systems
+        used by <strong>global, interdisciplinary teams</strong> operating across markets and mediums,
+        from print to digital, from static content to interactive experiences.
+        <br /><br />
+        As the <strong>senior operational owner</strong>, my mandate was not to optimize individual outputs,
+        but to <strong>reduce systemic risk</strong> across launches, handoffs, and change.
+      </h2>
+
+      <p> Much of this work happens quietly: defining workflows, setting constraints, designing platforms,
+        and making decisions that reduce friction long after a project ships.
+        <br /><br />
+        When it fails, the consequences are visible and can lead to missed deadlines,
+        strained trust, and real commercial impact.
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" data-target="8">0+</div>
+          <div class="stat-label">Years in operations</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="10">0</div>
+          <div class="stat-label">Global markets</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="26">0+</div>
+          <div class="stat-label">Stakeholders coordinated</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Systems thinking</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="navigation" class="impact-section">
+      <div class="section-header" style="font-size: medium; font-weight: bold;">Navigation
+      </div>
+      <h2 class="section-title"> This portfolio is not a collection of outputs. </h2>
+
+      <p> It's a record of <strong>interventions</strong> — moments where systems were redesigned
+        to scale participation, preserve quality, and create room for better decisions under pressure.
+      </p>
+      <p>
+        You'll see <strong>how those systems were built</strong>, the constraints that shaped them,
+        and the deliberate choices that made them durable.
+      </p>
+      <p>
+        You'll see <strong>how they're stewarded</strong>, how teams adopt them without friction,
+        and how they evolve under real delivery pressure.
+      </p>
+      <p>
+        And you'll see <strong>where they create leverage</strong> — the specific moments where
+        structure removes ambiguity and allows better work to happen.
+      </p>
+    </section>
+
+
+    <section id="system" class="system-section">
+
+
+
+      <div class="snap-card">
+
+        <div class="section-header" style="font-size: large; font-weight: bold;">CASE STUDY</div>
+        <div class="snap-label" style="font-size: large;">
+          <p>
+
+            Making Interactive Publishing Operable at Scale
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="context" class="impact-section">
+
+
+
+      <div class="section-header" style="font-size: medium; font-weight: bold;">Context</div>
+      <div class="snap-grid">
+        <div class="snap-card">
+          <div class="snap-label">Publishing Mode</div>
+
+          <div class="snap-number">PDF flipbook</div>
+        </div>
+        <div class="snap-card">
+          <div class="snap-label">Objective</div>
+
+          <div class="snap-number">Interactive digital</div>
+        </div>
+        <div class="snap-card">
+          <div class="snap-label">Constraints</div>
+
+          <div class="snap-number">No dev team</div>
+        </div>
+        <div class="snap-card">
+          <div class="snap-label">Budget</div>
+
+          <div class="snap-number">€4,000</div>
+        </div>
+        <div class="snap-card">
+          <div class="snap-label">Ownership</div>
+
+          <div class="snap-number">End-to-end</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-title"> </div>
+
+      </div>
+      <div class="section-header" style="font-size: medium; font-weight: bold;">The Problem</div>
+
+
+      <p>
+        Digital publishing existed within the organization, but only as <strong>static PDF-based editions</strong>
+        delivered through a flipbook-style platform. While this supported distribution, it did not support
+        interactivity. Data visualization, animated elements, and responsive content had never been produced
+        within the existing publishing model.
+      </p>
+      <p>
+        Leadership wanted to explore richer digital experiences, but doing so would require <strong>workflows,
+          tooling, and standards that did not yet exist</strong>. Without a system, any attempt at interactivity
+        would be fragile, specialist-dependent, and difficult to sustain under live publishing deadlines.
+      </p>
+      <p>
+        Although a full website redesign, which would open up the possibility of a more bespoke digital publishing
+        system, was planned for a later phase, leadership needed a <strong>short-term solution that could operate
+          within the current infrastructure</strong>. With a constrained budget of approximately €4,000, I was
+        responsible for defining what was feasible, owning resourcing decisions and delivering outcomes for the
+        digital transformation work described below.
+      </p>
+      <div class="section-title"> </div>
+
+      <div class="section-header" style="font-size: medium; font-weight: bold; ">The Decision</div>
+
+
+      <p style="font-size: medium; font-weight: bold;color: #d4381c;font-style: italic;">
+        The constraint was not technical capability, but operational reliability.
+      </p>
+      <p>
+        Interactive output could not depend on specialist knowledge if it was going to survive <strong>scale,
+          turnover, and delivery pressure</strong>.
+      </p>
+      <p>
+        The decision was to redesign digital publishing as a <strong>system</strong> — one that encoded standards
+        by default, reduced dependency on individual expertise, and held together as digital output increased.
+        Rather than expanding the team or introducing complex tooling, the system itself would absorb complexity
+        and enforce consistency.
+      </p>
+      <div class="section-title"> </div>
+
+
+      <div class="section-header" style="font-size: medium; font-weight: bold;">The Intervention</div>
+
+
+      <p>
+        With live publishing deadlines, no engineering roadmap, and no in-house development team, I took
+        ownership of digital publishing delivery. I <strong>scoped and staffed the minimum technical support
+          required</strong>, made tooling decisions that reduced long-term vendor dependency, and shifted
+        production capability upstream.
+      </p>
+      <p>
+        Instead of relying on expensive software or specialist workflows, editors and designers could
+        <strong>assemble interactive digital books using familiar inputs</strong> such as print PDFs —
+        with the system handling structure, validation, and output.
+      </p>
+      <div class="section-title"> </div>
+      <div class="snap-grid">
+        <div class="snap-card">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#d4381c" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M3 11L5.5 8.5C6.51706 7.48294 7.02558 6.97442 7.63723 6.8616C7.87705 6.81737 8.12295 6.81737 8.36277 6.8616C8.97442 6.97442 9.48295 7.48295 10.5 8.5C11.5171 9.51705 12.0256 10.0256 12.6372 10.1384C12.8771 10.1826 13.1229 10.1826 13.3628 10.1384C13.9744 10.0256 14.4829 9.51705 15.5 8.5L21 3" />
+            <path d="M3 15V21M9 13V21M15 16V21M21 9V21" />
+          </svg>
+          <div class="snap-number">No-code data visualization</div>
+          <div class="snap-label">Enforced styling to prevent visual drift</div>
+
+        </div>
+        <div class="snap-card">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#d4381c" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M5.33333 3.00001C7.79379 2.99657 10.1685 3.88709 12 5.5V21C10.1685 19.3871 7.79379 18.4966 5.33333 18.5C3.77132 18.5 2.99032 18.5 2.64526 18.2792C2.4381 18.1466 2.35346 18.0619 2.22086 17.8547C2 17.5097 2 16.8941 2 15.6629V6.40322C2 4.97543 2 4.26154 2.54874 3.68286C3.09748 3.10418 3.65923 3.07432 4.78272 3.0146C4.965 3.00491 5.14858 3.00001 5.33333 3.00001Z" />
+            <path
+              d="M12 21V5.5C13.8315 3.88709 16.2062 2.99657 18.6667 3.00001C18.8514 3.00001 19.035 3.00491 19.2173 3.0146C20.3408 3.07432 20.9025 3.10418 21.4513 3.68286C22 4.26154 22 4.97543 22 6.40322V11.5" />
+            <path
+              d="M21.6887 14.9339L21.0661 14.3113C20.651 13.8962 19.978 13.8962 19.5629 14.3113L16.2141 17.6601C15.769 18.1052 15.4656 18.6722 15.3421 19.2895L15 21L16.7105 20.6579C17.3278 20.5344 17.8948 20.231 18.3399 19.7859L21.6887 16.4371C22.1038 16.022 22.1038 15.349 21.6887 14.9339Z" />
+          </svg>
+          <div class="snap-number">Digital book editor</div>
+          <div class="snap-label">For structuring and exporting publications</div>
+        </div>
+
+        <div class="snap-card">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#d4381c" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M20 13V10.6569C20 9.83935 20 9.4306 19.8478 9.06306C19.6955 8.69552 19.4065 8.40649 18.8284 7.82843L14.0919 3.09188C13.593 2.593 13.3436 2.34355 13.0345 2.19575C12.9702 2.165 12.9044 2.13772 12.8372 2.11401C12.5141 2 12.1614 2 11.4558 2C8.21082 2 6.58831 2 5.48933 2.88607C5.26731 3.06508 5.06508 3.26731 4.88607 3.48933C4 4.58831 4 6.21082 4 9.45584V13M13 2.5V3C13 5.82843 13 7.24264 13.8787 8.12132C14.7574 9 16.1716 9 19 9H19.5" />
+            <path
+              d="M19.75 16H17.25C16.6977 16 16.25 16.4477 16.25 17V19M16.25 19V22M16.25 19H19.25M4.25 22V19.5M4.25 19.5V16H6C6.9665 16 7.75 16.7835 7.75 17.75C7.75 18.7165 6.9665 19.5 6 19.5H4.25ZM10.25 16H11.75C12.8546 16 13.75 16.8954 13.75 18V20C13.75 21.1046 12.8546 22 11.75 22H10.25V16Z" />
+          </svg>
+          <div class="snap-number">Automated PDF parsing</div>
+          <div class="snap-label">To eliminate manual production overhead</div>
+        </div>
+
+        <div class="snap-card">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#d4381c" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path
+              d="M14 2H10C6.72077 2 5.08116 2 3.91891 2.81382C3.48891 3.1149 3.1149 3.48891 2.81382 3.91891C2 5.08116 2 6.72077 2 10C2 13.2792 2 14.9188 2.81382 16.0811C3.1149 16.5111 3.48891 16.8851 3.91891 17.1862C5.08116 18 6.72077 18 10 18H14C17.2792 18 18.9188 18 20.0811 17.1862C20.5111 16.8851 20.8851 16.5111 21.1862 16.0811C22 14.9188 22 13.2792 22 10C22 6.72077 22 5.08116 21.1862 3.91891C20.8851 3.48891 20.5111 3.1149 20.0811 2.81382C18.9188 2 17.2792 2 14 2Z" />
+            <path
+              d="M16 8L17.2265 9.05719C17.7422 9.50163 18 9.72386 18 10C18 10.2761 17.7422 10.4984 17.2265 10.9428L16 12" />
+            <path
+              d="M8 8L6.77346 9.05719C6.25782 9.50163 6 9.72386 6 10C6 10.2761 6.25782 10.4984 6.77346 10.9428L8 12" />
+            <path d="M13 7L11 13" />
+            <path d="M14.6557 22L14.2369 21.5811C13.2926 20.6369 13.0585 19.1944 13.6557 18" />
+            <path d="M9.00051 22L9.41937 21.5811C10.3636 20.6369 10.5977 19.1944 10.0005 18" />
+            <path d="M7 22H17" />
+          </svg>
+          <div class="snap-number">Responsive e-book generator</div>
+          <div class="snap-label">Supporting interactive and multimedia content</div>
+        </div>
+
+        <div class="snap-card">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#d4381c" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+            <path
+              d="M12.828 6.00096C12.9388 5.68791 12.999 5.35099 12.999 5C12.999 3.34315 11.6559 2 9.99904 2C8.34219 2 6.99904 3.34315 6.99904 5C6.99904 5.35099 7.05932 5.68791 7.17008 6.00096C4.88532 6.0093 3.66601 6.09039 2.87772 6.87868C2.08951 7.66689 2.00836 8.88603 2 11.1704C2.31251 11.06 2.64876 11 2.99904 11C4.6559 11 5.99904 12.3431 5.99904 14C5.99904 15.6569 4.6559 17 2.99904 17C2.64876 17 2.31251 16.94 2 16.8296C2.00836 19.114 2.08951 20.3331 2.87772 21.1213C3.66593 21.9095 4.88508 21.9907 7.16941 21.999C7.05908 21.6865 6.99904 21.3503 6.99904 21C6.99904 19.3431 8.34219 18 9.99904 18C11.6559 18 12.999 19.3431 12.999 21C12.999 21.3503 12.939 21.6865 12.8287 21.999C15.113 21.9907 16.3322 21.9095 17.1204 21.1213C17.9086 20.333 17.9897 19.1137 17.9981 16.829C18.3111 16.9397 18.648 17 18.999 17C20.6559 17 21.999 15.6569 21.999 14C21.999 12.3431 20.6559 11 18.999 11C18.648 11 18.3111 11.0603 17.9981 11.171C17.9897 8.88627 17.9086 7.66697 17.1204 6.87868C16.3321 6.09039 15.1128 6.0093 12.828 6.00096Z" />
+          </svg>
+          <div class="snap-number">Templated cover system</div>
+          <div class="snap-label">To enforce brand consistency</div>
+        </div>
+      </div>
+
+    </section>
+    <!-- Impact Section -->
+    <section id="impacts" class="impact-section">
+      <div class="section-header" style="font-size: medium; font-weight: bold;">The Impact</div>
+
+      <p>
+        Digital editions became <strong>genuinely interactive</strong> while remaining consistent, repeatable,
+        and easy to evolve — without increasing technical debt or operational risk.
+      </p>
+
+      <div class="stats-grid">
+        <div class="snap-card">
+          <div class="snap-number" style="font-size: larger;">200%</div>
+          <div class="snap-label">Increase in reader engagement for interactive digital editions, validating the shift
+            from static distribution to interactive publishing</div>
+        </div>
+        <div class="snap-card">
+          <div class="snap-number" style="font-size: larger;">92%</div>
+          <div class="snap-label">Gain in production efficiency across the ebook lifecycle, driven by standardized
+            tooling</div>
+        </div>
+        <div class="snap-card">
+          <div class="snap-number" style="font-size: larger;">15 min</div>
+          <div class="snap-label">To produce a page, down from approximately 3 hours, enabling faster iteration under
+            live publishing deadlines</div>
+        </div>
+        <div class="snap-card">
+          <div class="snap-number" style="font-size: larger;">1,500+</div>
+          <div class="snap-label">Hours saved annually through workflow automation, reducing specialist dependency</div>
+        </div>
+      </div>
+      <p></p>
+      <p>
+        Together, these outcomes shifted interactive publishing from a <strong>one-off experiment</strong>
+        into a <strong>durable, repeatable capability</strong>.
+      </p>
+      <p>
+        Digital editions became <strong>genuinely interactive</strong> while remaining consistent, repeatable,
+        and easy to evolve — without increasing technical debt or operational risk.
+      </p>
+    </section>
+
+
+    <div class="snap-card">
+
+      <div class="section-header" style="font-size: large; font-weight: bold;">Emergent Outcomes</div>
+      <div class="snap-label" style="font-size: large;">
+        <p>
+          What began as a constrained operational problem <strong>reshaped how digital publishing was
+            understood internally</strong>. Moving beyond static distribution unlocked new forms of engagement
+          and possibility, including <strong>animated advertising formats that created entirely new revenue
+            streams</strong> for the company.
+        </p>
+      </div>
+    </div>
+
+
+
+
+    <!-- Patterns Section -->
+    <section id="stewardship" class="stewardship-section">
+      <div class="section-header" style="font-size: medium; font-weight: bold;">Stewardship</div>
+      <h1>Patterns of Leadership</h2>
+
+        <h2 class="section-title">Designing systems that support teams long after decisions are made</h2>
+
+        <p style="margin-bottom: 2rem;">
+          Leadership at scale isn't expressed through constant intervention. It shows up in the
+          <strong>systems that quietly guide teams</strong> when you're not in the room.
+        </p>
+        <p>
+          Across roles and organizations, I've focused on building structures that reduce ambiguity,
+          surface priorities, and help teams coordinate without friction.
+        </p>
+
+        <p style="color: #d4381c; font-style: italic;">These aren't one-off tools. They're <strong>patterns</strong>.
+        </p>
+
+        <div class="pattern-card">
+          <div class="pattern-number">Pattern 01</div>
+          <h2>Shared reality over status updates</h2>
+          <h3>The Project Master</h3>
+
+          <div class="pattern-examples">
+            <div class="pattern-section">
+              <h3 style="color: #d4381c">Problem</h3>
+              <h3>
+                Before the Project Master existed, progress lived in <strong>spreadsheets, meetings,
+                  and personal updates</strong>. Executives depended on me to translate scattered signals
+                into decisions.
+              </h3>
+            </div>
+
+            <div>
+              <h3 style="color: #d4381c">Intervention</h3>
+              <h3>
+                I designed a <strong>single system that defined what "progress" meant</strong>, using
+                standardized categories and weighted completion thresholds, so anyone could see where
+                a project stood at a glance. Once a project reached a verified level of readiness,
+                production could begin without debate or false starts.
+              </h3>
+            </div>
+
+            <div class="pattern-section">
+              <h3 style="color: #d4381c">Outcome</h3>
+              <h3>
+                The result was <strong>visibility and alignment without escalation</strong>. Clear
+                readiness thresholds reduced anxiety during high-pressure cycles and removed last-minute
+                heroics from the process. New contributors could work with confidence, without waiting
+                for approval or constant clarification.
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="pattern-card">
+          <div class="pattern-number">Pattern 02</div>
+          <h2>Standards at speed</h2>
+          <h3>The Project Master</h3>
+
+          <div class="pattern-examples">
+            <div class="pattern-section">
+              <h3 style="color: #d4381c">Problem</h3>
+              <h3>
+                Flexibility is useful until it obscures risk.
+              </h3>
+            </div>
+
+            <div>
+              <h3 style="color: #d4381c">Intervention</h3>
+              <h3>
+                This removed the temptation to "start anyway" and <strong>protected teams from rework,
+                  last-minute scrambles, and stalled launches</strong>.
+              </h3>
+            </div>
+
+            <div class="pattern-section">
+              <h3 style="color: #d4381c">Outcome</h3>
+              <h3>
+                The result was <strong>visibility and alignment without escalation</strong>. Clear
+                readiness thresholds reduced anxiety during high-pressure cycles and removed last-minute
+                heroics from the process. New contributors could work with confidence, without waiting
+                for approval or constant clarification.
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="pattern-card">
+          <div class="pattern-number">Pattern 03</div>
+          <h2>Embedded accountability</h2>
+          <h3>The automated Gantt chart</h3>
+
+          <div class="pattern-examples">
+            <div class="pattern-section">
+              <h3 style="color: #d4381c">Problem</h3>
+              <h3>
+                As teams grew and new journalists were onboarded, relying on <strong>ad hoc guidance
+                  no longer worked</strong>. Expectations needed to be visible without intervention.
+              </h3>
+            </div>
+
+            <div>
+              <h3 style="color: #d4381c">Intervention</h3>
+              <h3>
+                Editors spent less time orienting contributors. New team members could anticipate their
+                work without special attention. <strong>Ownership became clearer without additional
+                  process</strong>.
+              </h3>
+            </div>
+
+            <div class="pattern-section">
+              <h3 style="color: #d4381c">Outcome</h3>
+              <h3>
+                The result was <strong>visibility and alignment without escalation</strong>. Clear
+                readiness thresholds reduced anxiety during high-pressure cycles and removed last-minute
+                heroics from the process. New contributors could work with confidence, without waiting
+                for approval or constant clarification.
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="pattern-card">
+          <div class="pattern-number">Pattern 04 </div>
+          <h2>Stewardship over control </h2>
+
+          <div class="pattern-examples">
+            <div class="pattern-section">
+              <h3>
+                Not everyone adopted these systems immediately. In some cases, leaders preferred
+                <strong>personal updates over shared tools</strong>.
+              </h3>
+            </div>
+
+            <div>
+              <h3>
+                I held the line by <strong>redirecting decisions back to the system</strong> and
+                explaining the long-term value of shared visibility. Over time, ad hoc updates gave
+                way to a common understanding of progress, reducing status checks, surfacing risk
+                earlier, and lowering escalation to me.
+              </h3>
+            </div>
+
+            <div class="pattern-section">
+              <h3>
+                Stewardship meant <strong>maintaining the integrity of the system</strong> even when
+                it would have been easier to intervene.
+              </h3>
+            </div>
+            <div class="pattern-section">
+              <h3>
+                The result wasn't more process. It was <strong>calmer teams, clearer ownership, and
+                  more room for creative judgment under pressure</strong>.
+              </h3>
+            </div>
+          </div>
+        </div>
+  </div>
+
+
+  <div class="snap-card">
+
+    <div class="section-header" style="font-size: large; font-weight: bold; color: #1a1a1a;"> These systems didn't
+      eliminate complexity. They made it <strong>navigable</strong>.
+    </div>
+    <div class="snap-label" style="font-size: large;">
+      <p>
+        They allowed work to move forward without constant clarification, protected teams from
+        avoidable friction, and ensured that progress didn't depend on any one person being present.
+      </p>
+      <div class="section-header" style="font-size: large; font-weight: bold; font-style: italic;">
+        That's stewardship.
+      </div>
+    </div>
+  </div>
+
+
+  <section id="leverage" class="leverage-section">
+    <div class="section-header" style="font-size: medium; font-weight: bold;">Leverage
+    </div>
+    <h2 class="section-title"> Not all work carries the same weight.</h2>
+
+    <p>
+      In complex organizations, <strong>effort is everywhere</strong>. Impact is harder to find.
+    </p>
+
+    <p>
+      Leverage comes from recognizing where a <strong>small structural decision can remove
+        friction across teams</strong> and acting there instead of adding process, meetings, or headcount.
+    </p>
+
+    <p>
+      I architect systems for moments when <strong>growth, complexity, and creative ambition
+        collide</strong>. My role was not to increase throughput at any cost, but to protect delivery
+      quality and organizational trust over time.
+    </p>
+
+    <p>
+      The work I'm most proud of is often <strong>invisible</strong>. It shows up when teams can
+      move forward without stopping to ask, clarify, or escalate because the system already supports
+      the decision.
+    </p>
+
+    <div class="section-header" style="font-size: large; font-weight: bold; font-style: italic;">
+      That's leverage.</h2>
+
+  </section>
+
+
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section">
+    <h2>This is where the conversation begins.</h2>
+
+
+
+    <div class="contact-methods">
+      <a href="mailto:sarah.juptner@gmail.com" class="contact-button">
+        <span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+            color="currentColor" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M7 7.5L9.94202 9.23943C11.6572 10.2535 12.3428 10.2535 14.058 9.23943L17 7.5" />
+            <path
+              d="M11.5 19.5C11.5 19.5 10.0691 19.4878 9.09883 19.4634C5.95033 19.3843 4.37608 19.3448 3.24496 18.2094C2.11383 17.0739 2.08114 15.5412 2.01577 12.4756C1.99475 11.4899 1.99474 10.5101 2.01576 9.52438C2.08114 6.45885 2.11382 4.92608 3.24495 3.79065C4.37608 2.65521 5.95033 2.61566 9.09882 2.53656C11.0393 2.48781 12.9607 2.48781 14.9012 2.53657C18.0497 2.61568 19.6239 2.65523 20.7551 3.79066C21.8862 4.92609 21.9189 6.45886 21.9842 9.52439C21.9918 9.88124 21.9967 10.4995 21.9988 11" />
+            <path d="M14 17.5H22M18 21.5L18 13.5" />
+          </svg></span>
+        <span>sarah.juptner@gmail.com</span>
+      </a>
+      <button id="copyEmail" class="contact-button">
+        <span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+            color="currentColor" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path
+              d="M9 15C9 12.1716 9 10.7574 9.87868 9.87868C10.7574 9 12.1716 9 15 9L16 9C18.8284 9 20.2426 9 21.1213 9.87868C22 10.7574 22 12.1716 22 15V16C22 18.8284 22 20.2426 21.1213 21.1213C20.2426 22 18.8284 22 16 22H15C12.1716 22 10.7574 22 9.87868 21.1213C9 20.2426 9 18.8284 9 16L9 15Z" />
+            <path
+              d="M16.9999 9C16.9975 6.04291 16.9528 4.51121 16.092 3.46243C15.9258 3.25989 15.7401 3.07418 15.5376 2.90796C14.4312 2 12.7875 2 9.5 2C6.21252 2 4.56878 2 3.46243 2.90796C3.25989 3.07417 3.07418 3.25989 2.90796 3.46243C2 4.56878 2 6.21252 2 9.5C2 12.7875 2 14.4312 2.90796 15.5376C3.07417 15.7401 3.25989 15.9258 3.46243 16.092C4.51121 16.9528 6.04291 16.9975 9 16.9999" />
+          </svg></span>
+        <span>Copy Email Address</span>
+      </button>
+      <a href="https://www.linkedin.com/in/sarah-juptner/" target="_blank" rel="noopener" class="contact-button">
+        <span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+            color="currentColor" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path
+              d="M4.5 9.5H4C3.05719 9.5 2.58579 9.5 2.29289 9.79289C2 10.0858 2 10.5572 2 11.5V20C2 20.9428 2 21.4142 2.29289 21.7071C2.58579 22 3.05719 22 4 22H4.5C5.44281 22 5.91421 22 6.20711 21.7071C6.5 21.4142 6.5 20.9428 6.5 20V11.5C6.5 10.5572 6.5 10.0858 6.20711 9.79289C5.91421 9.5 5.44281 9.5 4.5 9.5Z" />
+            <path
+              d="M6.5 4.25C6.5 5.49264 5.49264 6.5 4.25 6.5C3.00736 6.5 2 5.49264 2 4.25C2 3.00736 3.00736 2 4.25 2C5.49264 2 6.5 3.00736 6.5 4.25Z" />
+            <path
+              d="M12.326 9.5H11.5C10.5572 9.5 10.0858 9.5 9.79289 9.79289C9.5 10.0858 9.5 10.5572 9.5 11.5V20C9.5 20.9428 9.5 21.4142 9.79289 21.7071C10.0858 22 10.5572 22 11.5 22H12C12.9428 22 13.4142 22 13.7071 21.7071C14 21.4142 14 20.9428 14 20L14.0001 16.5001C14.0001 14.8433 14.5281 13.5001 16.0879 13.5001C16.8677 13.5001 17.5 14.1717 17.5 15.0001V19.5001C17.5 20.4429 17.5 20.9143 17.7929 21.2072C18.0857 21.5001 18.5572 21.5001 19.5 21.5001H19.9987C20.9413 21.5001 21.4126 21.5001 21.7055 21.2073C21.9984 20.9145 21.9985 20.4432 21.9987 19.5006L22.0001 14.0002C22.0001 11.515 19.6364 9.50024 17.2968 9.50024C15.9649 9.50024 14.7767 10.1531 14.0001 11.174C14 10.5439 14 10.2289 13.8632 9.995C13.7765 9.84686 13.6531 9.72353 13.505 9.63687C13.2711 9.5 12.9561 9.5 12.326 9.5Z" />
+          </svg></span>
+        <span>Connect on LinkedIn</span>
+      </a>
+      <a href="https://calendar.app.google/Gjr6KuZqonaFioNJA" target="_blank" rel="noopener" class="contact-button">
+        <span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+            color="currentColor" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M16 2V6M8 2V6" />
+            <path
+              d="M13 4H11C7.22876 4 5.34315 4 4.17157 5.17157C3 6.34315 3 8.22876 3 12V14C3 17.7712 3 19.6569 4.17157 20.8284C5.34315 22 7.22876 22 11 22H13C16.7712 22 18.6569 22 19.8284 20.8284C21 19.6569 21 17.7712 21 14V12C21 8.22876 21 6.34315 19.8284 5.17157C18.6569 4 16.7712 4 13 4Z" />
+            <path d="M3 10H21" />
+            <path d="M11.9955 14H12.0045M11.9955 18H12.0045M15.991 14H16M8 14H8.00897M8 18H8.00897" />
+          </svg></span>
+        <span>Book a Meeting</span>
+      </a>
+    </div>
+  </section>
+  </div>
+
+  <!-- Copy Notification -->
+  <div id="copyNotification" class="copy-notification">Email copied to clipboard!</div>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    menuToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+      menuToggle.textContent = navMenu.classList.contains('open') ? '✕' : '☰';
+    });
+
+    // Close menu when clicking nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        menuToggle.textContent = '☰';
+      });
+    });
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const navHeight = 70;
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Email copy functionality
+    const copyEmailBtn = document.getElementById('copyEmail');
+    const copyNotification = document.getElementById('copyNotification');
+
+    copyEmailBtn.addEventListener('click', async () => {
+      const email = 'sarah.juptner@gmail.com';
+
+      try {
+        await navigator.clipboard.writeText(email);
+        copyNotification.classList.add('show');
+        setTimeout(() => {
+          copyNotification.classList.remove('show');
+        }, 2500);
+      } catch (err) {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = email;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        document.body.appendChild(textArea);
+        textArea.select();
+
+        try {
+          document.execCommand('copy');
+          copyNotification.classList.add('show');
+          setTimeout(() => {
+            copyNotification.classList.remove('show');
+          }, 2500);
+        } catch (err2) {
+          console.error('Failed to copy email:', err2);
+        }
+
+        document.body.removeChild(textArea);
+      }
+    });
+
+    // Add this after your existing menu toggle code
+
+    // Hide/show nav on scroll
+    let lastScrollTop = 0;
+    const mobileNav = document.querySelector('.mobile-nav');
+    const scrollThreshold = 100; // Start hiding after 100px scroll
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      // Only apply hide/show behavior after scrolling past threshold
+      if (scrollTop > scrollThreshold) {
+        if (scrollTop > lastScrollTop) {
+          // Scrolling DOWN - hide nav
+          mobileNav.classList.add('nav-hidden');
+        } else {
+          // Scrolling UP - show nav
+          mobileNav.classList.remove('nav-hidden');
+        }
+      } else {
+        // At top of page - always show nav
+        mobileNav.classList.remove('nav-hidden');
+      }
+
+      lastScrollTop = scrollTop;
+    }, { passive: true });
+
+    // Prevent pinch-to-zoom
+    document.addEventListener('gesturestart', function (e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener('gesturechange', function (e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener('gestureend', function (e) {
+      e.preventDefault();
+    });
+
+    // Prevent double-tap zoom
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function (event) {
+      const now = (new Date()).getTime();
+      if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, false);
+  </script>
+
+</body>
+
+</html>
