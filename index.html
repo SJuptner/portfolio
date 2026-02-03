@@ -329,10 +329,10 @@
       margin: 0;
       white-space: nowrap;
       display: inline-block;
-      animation: marqueeScroll 30s linear infinite;
+      animation: marquee 30s linear infinite;
     }
 
-    @keyframes marqueeScroll {
+    @keyframes marquee {
       0% {
         transform: translateX(0);
       }
@@ -345,7 +345,7 @@
     /* Scroll Cue - ENHANCED */
     .scroll-cue {
       position: fixed;
-      bottom: 10%;
+      bottom: 5%;
       left: 50%;
       transform: translate(-50%, 50%);
       display: flex;
@@ -393,8 +393,8 @@
     }
 
     .scroll-arrow {
-      width: 30px;
-      height: 300px;
+      width: 5px;
+      height: 100px;
       background: linear-gradient(180deg, var(--accent) 0%, transparent 100%);
       display: block;
     }
