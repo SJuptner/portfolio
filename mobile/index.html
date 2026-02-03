@@ -857,6 +857,20 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(212, 56, 28, 0.3);
     }
+    /* ============================================
+       ACCESSIBILITY: Reduced Motion
+       ============================================ */
+    
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
 
@@ -1434,7 +1448,7 @@
                 <h3>Sarah Juptner</h3>
                 <p>Production Director</p>
               </div>
-      <a href="mailto:sarah.juptner@gmail.com" class="contact-button">
+      <a href="/cdn-cgi/l/email-protection#25564457444d0b4f5055514b4057654248444c490b464a48" class="contact-button">
         <span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
             color="currentColor" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
             stroke-linejoin="round">
@@ -1443,7 +1457,7 @@
               d="M11.5 19.5C11.5 19.5 10.0691 19.4878 9.09883 19.4634C5.95033 19.3843 4.37608 19.3448 3.24496 18.2094C2.11383 17.0739 2.08114 15.5412 2.01577 12.4756C1.99475 11.4899 1.99474 10.5101 2.01576 9.52438C2.08114 6.45885 2.11382 4.92608 3.24495 3.79065C4.37608 2.65521 5.95033 2.61566 9.09882 2.53656C11.0393 2.48781 12.9607 2.48781 14.9012 2.53657C18.0497 2.61568 19.6239 2.65523 20.7551 3.79066C21.8862 4.92609 21.9189 6.45886 21.9842 9.52439C21.9918 9.88124 21.9967 10.4995 21.9988 11" />
             <path d="M14 17.5H22M18 21.5L18 13.5" />
           </svg></span>
-        <span>sarah.juptner@gmail.com</span>
+        <span><span class="__cf_email__" data-cfemail="691a081b080147031c191d070c1b290e04080005470a0604">[email&#160;protected]</span></span>
       </a>
       <button id="copyEmail" class="contact-button">
         <span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
@@ -1487,7 +1501,7 @@
   <!-- Copy Notification -->
   <div id="copyNotification" class="copy-notification">Email copied to clipboard!</div>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Mobile menu toggle
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.getElementById('navMenu');
@@ -1607,8 +1621,197 @@
       }
       lastTouchEnd = now;
     }, false);
+
+    // ============================================
+    // COUNTER ANIMATION SYSTEM (with Accessibility)
+    // ============================================
+
+    // Check for reduced motion preference (accessibility)
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    // Log for debugging (optional - remove in production if desired)
+    if (prefersReducedMotion) {
+      console.log('✓ Reduced motion detected - animations will be instant for accessibility');
+    }
+
+    // Easing function for smooth animation
+    function easeOutExpo(t) {
+      return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    }
+
+    // Set number instantly (for reduced motion or fallback)
+    function setNumberInstantly(element, value, suffix) {
+      if (typeof value === 'number') {
+        element.textContent = value.toLocaleString('en-US') + suffix;
+      } else {
+        element.textContent = value + suffix;
+      }
+    }
+
+    // Animate a single number counting UP
+    function animateNumberUp(element, target, suffix) {
+      // If user prefers reduced motion, skip animation
+      if (prefersReducedMotion) {
+        setNumberInstantly(element, target, suffix);
+        return;
+      }
+
+      const duration = 2000;
+      const startTime = performance.now();
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easedProgress = easeOutExpo(progress);
+        const currentValue = Math.floor(easedProgress * target);
+
+        element.textContent = currentValue.toLocaleString('en-US') + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    // Animate a single number counting DOWN (for time reduction)
+    function animateNumberDown(element, startValue, endValue, suffix) {
+      // If user prefers reduced motion, skip animation
+      if (prefersReducedMotion) {
+        setNumberInstantly(element, endValue, suffix);
+        return;
+      }
+
+      const duration = 2000;
+      const startTime = performance.now();
+      const range = startValue - endValue;
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easedProgress = easeOutExpo(progress);
+        const currentValue = Math.floor(startValue - (easedProgress * range));
+
+        element.textContent = currentValue + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    // Animate "At a Glance" section counters
+    function animateGlanceCounters() {
+      const snapCards = document.querySelectorAll('#glance .snap-card');
+
+      if (prefersReducedMotion) {
+        // Instant display for reduced motion
+        setNumberInstantly(snapCards[0].querySelector('.snap-number'), 8, '+');
+        setNumberInstantly(snapCards[1].querySelector('.snap-number'), 10, '');
+        setNumberInstantly(snapCards[2].querySelector('.snap-number'), 26, '+');
+        // Card 3: ∞ stays as is
+        return;
+      }
+
+      // Animated display with staggered timing
+      // Card 0: 8+
+      setTimeout(() => {
+        const numberElement = snapCards[0].querySelector('.snap-number');
+        animateNumberUp(numberElement, 8, '+');
+      }, 0);
+
+      // Card 1: 10
+      setTimeout(() => {
+        const numberElement = snapCards[1].querySelector('.snap-number');
+        animateNumberUp(numberElement, 10, '');
+      }, 150);
+
+      // Card 2: 26+
+      setTimeout(() => {
+        const numberElement = snapCards[2].querySelector('.snap-number');
+        animateNumberUp(numberElement, 26, '+');
+      }, 300);
+
+      // Card 3: ∞ (infinity) - DO NOT ANIMATE
+    }
+
+    // Animate "Impact" section counters
+    function animateImpactCounters() {
+      const snapCards = document.querySelectorAll('#impacts .snap-card');
+
+      if (prefersReducedMotion) {
+        // Instant display for reduced motion
+        setNumberInstantly(snapCards[0].querySelector('.snap-number'), 200, '%');
+        setNumberInstantly(snapCards[1].querySelector('.snap-number'), 92, '%');
+        setNumberInstantly(snapCards[2].querySelector('.snap-number'), 15, ' min');
+        setNumberInstantly(snapCards[3].querySelector('.snap-number'), 1500, '+');
+        return;
+      }
+
+      // Animated display with staggered timing
+      // Card 0: 200%
+      setTimeout(() => {
+        const numberElement = snapCards[0].querySelector('.snap-number');
+        animateNumberUp(numberElement, 200, '%');
+      }, 0);
+
+      // Card 1: 92%
+      setTimeout(() => {
+        const numberElement = snapCards[1].querySelector('.snap-number');
+        animateNumberUp(numberElement, 92, '%');
+      }, 150);
+
+      // Card 2: 15 min (countdown from 180 min)
+      setTimeout(() => {
+        const numberElement = snapCards[2].querySelector('.snap-number');
+        animateNumberDown(numberElement, 180, 15, ' min');
+      }, 300);
+
+      // Card 3: 1,500+
+      setTimeout(() => {
+        const numberElement = snapCards[3].querySelector('.snap-number');
+        animateNumberUp(numberElement, 1500, '+');
+      }, 450);
+    }
+
+    // Set up IntersectionObserver for "At a Glance" section
+    const glanceSection = document.getElementById('glance');
+    
+    if (glanceSection) {
+      const glanceObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateGlanceCounters();
+          }
+        });
+      }, {
+        threshold: 0.3,
+        rootMargin: '0px'
+      });
+
+      glanceObserver.observe(glanceSection);
+    }
+
+    // Set up IntersectionObserver for "Impact" section
+    const impactSection = document.getElementById('impacts');
+    
+    if (impactSection) {
+      const impactObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateImpactCounters();
+          }
+        });
+      }, {
+        threshold: 0.3,
+        rootMargin: '0px'
+      });
+
+      impactObserver.observe(impactSection);
+    }
   </script>
-
 </body>
-
 </html>
