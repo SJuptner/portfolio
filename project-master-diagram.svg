@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 520" style="max-width: 700px; height: auto;">
+  <!-- Define styles -->
+  <defs>
+    <style>
+      .tracker-box { 
+        fill: rgba(212, 56, 28, 0.05); 
+        stroke: #d4381c; 
+        stroke-width: 1.5; 
+      }
+      .tracker-text { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+        font-size: 15px; 
+        fill: #1a1a1a; 
+        font-weight: 500; 
+        text-anchor: middle;
+      }
+      .arrow-line { 
+        stroke: #d4381c; 
+        stroke-width: 1.5; 
+        fill: none; 
+      }
+      .arrow-head { 
+        fill: #d4381c; 
+      }
+      .process-box { 
+        fill: rgba(212, 56, 28, 0.05); 
+        stroke: #d4381c; 
+        stroke-width: 1.5; 
+      }
+      .process-text { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+        font-size: 15px; 
+        fill: #1a1a1a; 
+        font-weight: 600; 
+        text-anchor: middle; 
+      }
+      .label-text { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+        font-size: 13px; 
+        fill: #666666; 
+        text-anchor: middle; 
+      }
+      .result-box { 
+        fill: rgba(212, 56, 28, 0.05); 
+        stroke: #d4381c; 
+        stroke-width: 1.5; 
+      }
+      .result-text { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+        font-size: 15px; 
+        fill: #1a1a1a; 
+        font-weight: 600; 
+        text-anchor: middle; 
+      }
+      .outcome-text {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+        font-size: 15px; 
+        fill: #1a1a1a; 
+        font-weight: 600; 
+        text-anchor: middle;
+      }
+    </style>
+    
+    <!-- Arrow marker definition -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon class="arrow-head" points="0 0, 10 3, 0 6" />
+    </marker>
+  </defs>
+
+  <!-- Top level: Individual trackers -->
+  <g id="tracker-a">
+    <rect class="tracker-box" x="40" y="30" width="130" height="55" rx="3"/>
+    <text class="tracker-text" x="105" y="62">Project Tracker A</text>
+  </g>
+
+  <g id="tracker-b">
+    <rect class="tracker-box" x="285" y="30" width="130" height="55" rx="3"/>
+    <text class="tracker-text" x="350" y="62">Project Tracker B</text>
+  </g>
+
+  <g id="tracker-c">
+    <rect class="tracker-box" x="530" y="30" width="130" height="55" rx="3"/>
+    <text class="tracker-text" x="595" y="62">Project Tracker C</text>
+  </g>
+
+  <!-- Arrows converging to consolidation -->
+  <path class="arrow-line" d="M 135 85 L 260 170" marker-end="url(#arrowhead)"/>
+  <path class="arrow-line" d="M 350 85 L 350 170" marker-end="url(#arrowhead)"/>
+  <path class="arrow-line" d="M 565 85 L 440 170" marker-end="url(#arrowhead)"/>
+
+  <!-- Consolidation process box -->
+  <g id="consolidation">
+    <rect class="process-box" x="200" y="180" width="300" height="55" rx="3"/>
+    <text class="process-text" x="350" y="212">Project Master</text>
+  </g>
+
+  <!-- Label below Project Master -->
+  <text class="label-text" x="350" y="255">Live data inputs from all projects</text>
+
+  <!-- Arrow down to weighted consolidation -->
+  <path class="arrow-line" d="M 350 235 L 350 275" marker-end="url(#arrowhead)"/>
+
+  <!-- Weighted consolidation process -->
+  <g id="weighted-metrics">
+    <rect class="process-box" x="225" y="285" width="250" height="45" rx="3"/>
+    <text class="process-text" x="350" y="312">Weighted Metrics</text>
+  </g>
+
+  <!-- Arrow down to readiness -->
+  <path class="arrow-line" d="M 350 330 L 350 360" marker-end="url(#arrowhead)"/>
+
+  <!-- Overall Project Completion box -->
+  <g id="readiness">
+    <rect class="result-box" x="225" y="370" width="250" height="50" rx="3"/>
+    <text class="result-text" x="350" y="400">Overall Project Completion %</text>
+  </g>
+
+  <!-- Arrow down to shared visibility -->
+  <path class="arrow-line" d="M 350 420 L 350 450" marker-end="url(#arrowhead)"/>
+
+  <!-- Shared visibility outcome -->
+  <text class="outcome-text" x="350" y="475">Shared Visibility</text>
+  <text class="label-text" x="350" y="500">Progress visible to all stakeholders</text>
+</svg>
