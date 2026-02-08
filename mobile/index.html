@@ -1648,11 +1648,13 @@
           </svg></span>
         <span>Copy Email Address</span>
       </button>
-<a href="intent://www.linkedin.com/in/sarah-juptner/#Intent;scheme=https;package=com.linkedin.android;end;"
-  data-fallback="https://www.linkedin.com/in/sarah-juptner/"
-  target="_blank"
+<a
+  href="https://www.linkedin.com/in/sarah-juptner/"
+  class="contact-button"
   rel="noopener"
-  class="contact-button">        
+  onclick="return openLinkedIn(event);"
+>
+      
     <span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
             color="currentColor" fill="none" stroke="currentColor" stroke-width="1.5">
             <path
@@ -1952,6 +1954,22 @@
 
       impactObserver.observe(impactSection);
     }
+
+    <script>
+function openLinkedIn(e) {
+  const ua = navigator.userAgent;
+  const isAndroid = /Android/i.test(ua);
+
+  if (isAndroid) {
+    e.preventDefault();
+    window.location.href =
+      "intent://www.linkedin.com/in/sarah-juptner/#Intent;scheme=https;package=com.linkedin.android;end;";
+    return false;
+  }
+  return true;
+}
+</script>
+
   </script>
 </body>
 </html>
