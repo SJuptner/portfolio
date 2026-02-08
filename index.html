@@ -61,10 +61,6 @@
       user-select: text;
     }
 
-    /* ============================================
-       GLOBAL NAVIGATION
-       ============================================ */
-
     .global-nav {
       position: fixed;
       top: 0;
@@ -76,12 +72,10 @@
       z-index: 1000;
       padding: 0 2rem;
       transition: transform 0.3s ease;
-      /* ADD THIS */
     }
 
     .global-nav.nav-hidden {
       transform: translateY(-100%);
-      /* ADD THIS */
     }
 
     .nav-container {
@@ -121,12 +115,10 @@
       border-bottom-color: var(--accent);
     }
 
-    /* Offset body content for fixed nav */
     .site-wrapper {
       padding-top: 70px;
     }
 
-    /* Typography */
     h1 {
       font-family: 'Lora', serif;
       font-weight: 700;
@@ -152,7 +144,6 @@
       font-weight: 700;
     }
 
-    /* Layout */
     .site-wrapper {
       width: 100%;
     }
@@ -168,7 +159,6 @@
       margin: 0 auto;
     }
 
-    /* Hero Section */
     .page-mandate {
       background: linear-gradient(180deg, #fafafa 0%, #fff 100%);
     }
@@ -182,7 +172,6 @@
       position: relative;
     }
 
-    /* Side context bar */
     .hero-context {
       position: fixed;
       left: 2rem;
@@ -211,7 +200,6 @@
       font-weight: 700;
     }
 
-    /* Main hero content */
     .hero-text {
       max-width: 900px;
       margin: 0 auto;
@@ -289,7 +277,6 @@
       }
     }
 
-    /* Authority Marquee - SEAMLESS CONTINUOUS ANIMATION */
     .authority-marquee {
       margin: 4rem 0 2rem;
       padding: 2rem 0;
@@ -339,7 +326,6 @@
       }
     }
 
-    /* Scroll Cue - ENHANCED */
     .scroll-cue {
       position: fixed;
       bottom: 8%;
@@ -396,7 +382,6 @@
       display: block;
     }
 
-    /* Proof Container - REDESIGNED */
     .proof-container {
       padding: 6rem 2rem;
       opacity: 0;
@@ -411,7 +396,6 @@
       opacity: 1;
     }
 
-    /* Skim sidebar */
     .skim-sidebar {
       position: sticky;
       top: 6rem;
@@ -457,7 +441,6 @@
       line-height: 1.3;
     }
 
-    /* Main content */
     .proof-content h2 {
       font-size: clamp(1.5rem, 3vw, 2.125rem);
       line-height: 1.5;
@@ -474,7 +457,6 @@
       margin-top: 2rem;
     }
 
-    /* Site Orientation - REDESIGNED */
     .site-orientation {
       padding: 8rem 2rem;
       max-width: 1200px;
@@ -490,7 +472,6 @@
       opacity: 1;
     }
 
-    /* Left column - Visual statement */
     .orientation-statement {
       position: sticky;
       top: 6rem;
@@ -523,7 +504,6 @@
 
 
 
-    /* Right column - Content */
     .orientation-content {
       padding-top: 3rem;
     }
@@ -604,7 +584,6 @@
       transform: translateY(-2px);
     }
 
-    /* Responsive */
     @media (max-width: 1024px) {
       .hero-context {
         display: none;
@@ -664,7 +643,6 @@
         width: 100%;
       }
 
-      /* Page 2 responsive */
       .snapshot-layout {
         grid-template-columns: 1fr;
         gap: 3rem;
@@ -775,7 +753,6 @@
         padding-left: 1.5rem;
       }
 
-      /* Page 3 responsive */
       .patterns-container {
         grid-template-columns: 1fr;
         gap: 3rem;
@@ -808,7 +785,6 @@
         font-size: 1.5rem !important;
       }
 
-      /* Page 4 responsive */
       .contact-grid {
         grid-template-columns: 1fr;
         gap: 3rem;
@@ -886,7 +862,6 @@
       }
     }
 
-    /* Scroll-triggered animations */
     .fade-on-scroll,
     .fade-on-scroll-late {
       opacity: 0;
@@ -900,15 +875,11 @@
       transform: translateY(0);
     }
 
-    /* ============================================
-       PAGE 2: THE SYSTEM - Case Study Styles
-       ============================================ */
 
     .page-system {
       background: #fff;
     }
 
-    /* Case Study Hero */
     .case-study-hero {
       padding: 8rem 2rem 4rem;
       max-width: 1200px;
@@ -935,7 +906,6 @@
       margin: 0;
     }
 
-    /* Context Snapshot Section */
     .context-snapshot {
       padding: 6rem 2rem;
       opacity: 0;
@@ -955,7 +925,6 @@
       align-items: start;
     }
 
-    /* Snapshot Sidebar */
     .snapshot-sidebar {
       position: sticky;
       top: 6rem;
@@ -1002,7 +971,6 @@
       line-height: 1.3;
     }
 
-    /* Workflow Diagram */
     .workflow-diagram {
       margin-top: 3rem;
       padding-top: 2rem;
@@ -1064,7 +1032,6 @@
       opacity: 0.5;
     }
 
-    /* Narrative Content */
     .narrative-content {
       max-width: 800px;
     }
@@ -1086,7 +1053,6 @@
       color: #333;
     }
 
-    /* Insight Callout */
     .insight-callout {
       font-size: 1.5rem !important;
       font-style: italic;
@@ -1097,7 +1063,6 @@
       background: rgba(212, 56, 28, 0.03);
     }
 
-    /* Tools Grid */
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1161,7 +1126,6 @@
       margin: 0;
     }
 
-    /* Impact Section */
     .impact-section {
       background: var(--light-gray);
       padding: 4rem 3rem;
@@ -1203,7 +1167,6 @@
       font-size: 1.125rem !important;
     }
 
-    /* Emergent Section */
     .emergent-section {
       margin-top: 5rem;
     }
@@ -1233,7 +1196,6 @@
       flex: 1;
     }
 
-    /* Section Navigation */
     .section-nav {
       margin-top: 6rem;
       padding-top: 3rem;
@@ -1273,15 +1235,11 @@
       color: var(--primary);
     }
 
-    /* ============================================
-       PAGE 3: STEWARDSHIP - Patterns Styles
-       ============================================ */
 
     .page-stewardship {
       background: linear-gradient(180deg, #fff 0%, #fafafa 100%);
     }
 
-    /* Stewardship Hero */
     .stewardship-hero {
       padding: 8rem 2rem 4rem;
       max-width: 1000px;
@@ -1343,7 +1301,6 @@
       margin-top: 2.5rem !important;
     }
 
-    /* Patterns Section */
     .patterns-section {
       padding: 6rem 2rem;
       opacity: 0;
@@ -1363,7 +1320,6 @@
       align-items: start;
     }
 
-    /* Pattern Navigation Sidebar */
     .pattern-nav {
       position: sticky;
       top: 6rem;
@@ -1423,7 +1379,6 @@
       line-height: 1.3;
     }
 
-    /* Pattern Cards */
     .patterns-content {
       display: flex;
       flex-direction: column;
@@ -1458,7 +1413,6 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
     }
 
-    /* Pattern Header */
     .pattern-header {
       display: flex;
       gap: 2rem;
@@ -1515,7 +1469,6 @@
       font-weight: 600;
     }
 
-    /* Pattern Body */
     .pattern-body {
       display: flex;
       flex-direction: column;
@@ -1539,7 +1492,6 @@
       margin: 0;
     }
 
-    /* Pattern 4 - Extended format */
     .pattern-card-extended .pattern-body {
       gap: 1.5rem;
     }
@@ -1555,7 +1507,6 @@
       font-size: 1.125rem !important;
     }
 
-    /* Stewardship Conclusion */
     .stewardship-conclusion {
       padding: 6rem 2rem;
       max-width: 900px;
@@ -1603,15 +1554,11 @@
       margin-bottom: 0 !important;
     }
 
-    /* ============================================
-       PAGE 4: LEVERAGE - Final Page Styles
-       ============================================ */
 
     .page-leverage {
       background: linear-gradient(180deg, #fafafa 0%, #fff 100%);
     }
 
-    /* Leverage Hero */
     .leverage-hero {
       padding: 8rem 2rem 6rem;
       max-width: 1000px;
@@ -1676,7 +1623,6 @@
       margin-bottom: 0 !important;
     }
 
-    /* Contact Section */
     .contact-section {
       padding: 8rem 2rem;
       background: var(--primary);
@@ -1704,7 +1650,7 @@
       margin: 0;
     }
 
-    /* Contact Grid */
+
     .contact-grid {
       display: grid;
       grid-template-columns: 300px 1fr;
@@ -1713,7 +1659,6 @@
       align-items: start;
     }
 
-    /* Profile Column */
     .contact-profile {
       display: flex;
       flex-direction: column;
@@ -1758,7 +1703,6 @@
       margin: 0;
     }
 
-    /* Book a Meeting Button (under profile) */
     .profile-btn {
       display: flex;
       align-items: center;
@@ -1794,7 +1738,6 @@
       box-shadow: 0 4px 12px rgba(212, 56, 28, 0.3);
     }
 
-    /* Contact Links */
     .contact-links {
       display: flex;
       flex-direction: column;
@@ -1867,7 +1810,6 @@
       color: #fff;
     }
 
-    /* Contact Footer */
     .contact-footer {
       padding-top: 3rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -1882,7 +1824,6 @@
       margin: 0 auto;
     }
 
-    /* Site Footer */
     .site-footer {
       background: #000;
       padding: 2rem;
@@ -1896,7 +1837,6 @@
       margin: 0;
     }
 
-    /* Email Copy Notification - Inline in Card */
     .contact-link {
       position: relative;
       overflow: hidden;
@@ -2252,7 +2192,7 @@
   <defs>
     <style>
       .section-label { 
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+      font-family: 'Lora', serif;
         font-size: 13px; 
         fill: #666666; 
         font-weight: 600; 
@@ -2265,14 +2205,14 @@
         stroke-width: 1.5; 
       }
       .tool-name { 
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+      font-family: 'Lora', serif;
         font-size: 14px; 
         fill: #1a1a1a; 
         font-weight: 600; 
         text-anchor: middle;
       }
       .tool-description { 
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+      font-family: 'Lora', serif;
         font-size: 11px; 
         fill: #666666; 
         text-anchor: middle;
@@ -2291,14 +2231,14 @@
         stroke-width: 2; 
       }
       .hub-name { 
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+      font-family: 'Lora', serif;
         font-size: 15px; 
         fill: #1a1a1a; 
         font-weight: 700; 
         text-anchor: middle;
       }
       .validation-text { 
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+      font-family: 'Lora', serif;
         font-size: 11px; 
         fill: #d4381c; 
         text-anchor: middle;
@@ -2310,14 +2250,14 @@
         stroke-width: 2; 
       }
       .output-name { 
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+      font-family: 'Lora', serif;
         font-size: 15px; 
         fill: #1a1a1a; 
         font-weight: 600; 
         text-anchor: middle;
       }
       .platform-text { 
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+      font-family: 'Lora', serif;
         font-size: 11px; 
         fill: #666666; 
         text-anchor: middle;
@@ -2605,7 +2545,7 @@
         stroke-width: 1.5; 
       }
       .tracker-text { 
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+      font-family: 'Lora', serif;
         font-size: 15px; 
         fill: #1a1a1a; 
         font-weight: 500; 
@@ -2625,14 +2565,14 @@
         stroke-width: 1.5; 
       }
       .process-text { 
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+      font-family: 'Lora', serif;
         font-size: 15px; 
         fill: #1a1a1a; 
         font-weight: 600; 
         text-anchor: middle; 
       }
       .label-text { 
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+      font-family: 'Lora', serif;
         font-size: 13px; 
         fill: #666666; 
         text-anchor: middle; 
@@ -2643,14 +2583,14 @@
         stroke-width: 1.5; 
       }
       .result-text { 
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+      font-family: 'Lora', serif;
         font-size: 15px; 
         fill: #1a1a1a; 
         font-weight: 600; 
         text-anchor: middle; 
       }
       .outcome-text {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; 
+      font-family: 'Lora', serif;
         font-size: 15px; 
         fill: #1a1a1a; 
         font-weight: 600; 
